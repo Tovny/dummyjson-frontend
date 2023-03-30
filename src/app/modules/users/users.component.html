@@ -1,1 +1,3 @@
-<p>users works!</p>
+<ng-container *ngIf="users$ | async as users">
+  <p *ngFor="let user of users">{{ user.firstName }}</p>
+</ng-container>
