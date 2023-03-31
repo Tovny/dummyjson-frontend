@@ -1,3 +1,5 @@
+import { ApiEndpoints } from './shared/models/ApiEndpoints.model';
+
 export interface Product {
   brand: string;
   category: string;
@@ -71,12 +73,20 @@ interface Company {
   title: string;
 }
 
-interface Response {
+export interface Cart {
+  id: number;
+  products: Product[];
+  total: number;
+  discountedTotal: number;
+  userId: number;
+  totalProducts: number;
+  totalQuantity: number;
+}
+
+export type Response<T extends User | Product | Cart> = {
+  [k in ApiEndpoints]: T[];
+} & {
   limit: number;
   skip: number;
   total: number;
-}
-
-export interface UserResponse extends Response {
-  users: User[];
-}
+};

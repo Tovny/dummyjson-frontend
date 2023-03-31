@@ -8,7 +8,7 @@ import { UsersService } from './services/users.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersComponent {
-  public users$ = this.service.users$;
+  public users$ = this.service.data$;
 
   constructor(private service: UsersService) {}
 }
