@@ -14,7 +14,7 @@ export const dataResolver = <T extends User | Product | Cart>(
         if (data.length) {
           return of(data);
         }
-        return apiService.fetchData().pipe(switchMap(() => apiService.data$));
+        return apiService.fetchItems().pipe(switchMap(() => apiService.data$));
       })
     );
   };
