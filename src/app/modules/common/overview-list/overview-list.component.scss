@@ -2,10 +2,10 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  padding: 1rem;
 }
 
 form {
-  margin: 1rem;
   margin-bottom: 0;
 }
 
@@ -17,9 +17,9 @@ ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 2rem;
   margin: 0;
+  padding: 0;
 }
 
 li {
@@ -29,6 +29,7 @@ li {
 button {
   width: max-content;
   margin: auto;
+  margin-top: 2rem;
 }
 
 mat-spinner {

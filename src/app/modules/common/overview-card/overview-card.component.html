@@ -1,0 +1,9 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ title }}</mat-card-title>
+    <mat-card-subtitle *ngFor="let subtitle of subtitles">
+      {{ subtitle }}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <img [src]="imageSrc" [alt]="imageAlt" />
+</mat-card>

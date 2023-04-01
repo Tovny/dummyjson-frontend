@@ -4,5 +4,11 @@
   [total]="data.total"
   [loading]="data.loading"
   (loadData)="loadData($event)">
-  <ng-template #itemTemplate let-item>{{ item.id }}</ng-template>
+  <ng-template #itemTemplate let-user>
+    <app-overview-card
+      [title]="user.firstName + ' ' + user.lastName"
+      [subtitles]="['Phone: ' + user.phone, 'E-Mail: ' + user.email]"
+      [imageSrc]="user.image"
+      [imageAlt]="user.firstName + ' ' + user.lastName"></app-overview-card>
+  </ng-template>
 </app-overview-list>
