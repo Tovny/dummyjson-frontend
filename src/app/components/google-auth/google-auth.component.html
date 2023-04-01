@@ -1,8 +1,6 @@
 <button
   *ngIf="authToken$ | async; else googleButton"
-  mat-mini-fab
-  color="warn"
-  disabled
+  mat-icon-button
   aria-label="Logout"
   [disabled]="disabled$ | async"
   (click)="logout()">
