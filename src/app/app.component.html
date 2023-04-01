@@ -7,9 +7,10 @@
       color="secondary">
       {{ item | titlecase }}
     </a>
+    <app-google-auth></app-google-auth>
   </mat-toolbar>
 </nav>
 
-<mat-spinner *ngIf="loading$ | async" diameter="50">loading</mat-spinner>
+<mat-spinner *ngIf="loading$ | async" diameter="50"></mat-spinner>
 
 <router-outlet></router-outlet>

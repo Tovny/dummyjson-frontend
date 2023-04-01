@@ -1,4 +1,9 @@
 import { ApiEndpoints } from './shared/models/ApiEndpoints.model';
+import { accounts as Accounts } from 'google-one-tap';
+
+declare var window: Window & {
+  google: { accounts: Accounts };
+};
 
 export interface Product {
   brand: string;

@@ -8,9 +8,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApiInterceptor } from './shared/interceptors/api.interceptor';
 import { SharedModule } from './shared/shared.module';
+import { GoogleAuthComponent } from './components/google-auth/google-auth.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, GoogleAuthComponent],
   imports: [
     SharedModule,
     BrowserModule,
