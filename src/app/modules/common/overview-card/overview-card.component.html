@@ -3,9 +3,11 @@
     <mat-card-title>
       <a mat-button [routerLink]="link">{{ title }}</a>
     </mat-card-title>
-    <mat-card-subtitle *ngFor="let subtitle of subtitles">
-      {{ subtitle }}
-    </mat-card-subtitle>
+    <ng-container *ngIf="subtitles">
+      <mat-card-subtitle *ngFor="let subtitle of subtitles">
+        {{ subtitle }}
+      </mat-card-subtitle>
+    </ng-container>
     <ng-content></ng-content>
   </mat-card-header>
   <img *ngIf="imageSrc" [src]="imageSrc" [alt]="imageAlt" />
