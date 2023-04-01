@@ -1,0 +1,27 @@
+<app-overview-list
+  *ngIf="data$ | async as data"
+  [items]="data.data"
+  [total]="data.total"
+  [loading]="data.loading"
+  (loadData)="loadData($event)">
+  <ng-template #itemTemplate let-cart>
+    <app-overview-card
+      [link]="[cartsEndpoint, cart.id]"
+      [title]="'Cart ID: ' + cart.id">
+      <mat-card-subtitle *ngFor="let prod of cart.products">
+        <div>
+          <a mat-button [routerLink]="['/', productsEndpoint, prod.id]">
+            {{ prod.title }}
+          </a>
+          {{ prod.discountedPrice }}, {{ prod.quantity }}x
+        </div>
+      </mat-card-subtitle>
+      <mat-card-subtitle class="total">
+        Total: {{ cart.total }}
+      </mat-card-subtitle>
+      <mat-card-subtitle>
+        After discount: {{ cart.discountedTotal }}
+      </mat-card-subtitle>
+    </app-overview-card>
+  </ng-template>
+</app-overview-list>

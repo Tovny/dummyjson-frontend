@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card [ngClass]="{ text: !imageSrc }">
   <mat-card-header>
     <mat-card-title>
       <a mat-button [routerLink]="link">{{ title }}</a>
@@ -6,6 +6,7 @@
     <mat-card-subtitle *ngFor="let subtitle of subtitles">
       {{ subtitle }}
     </mat-card-subtitle>
+    <ng-content></ng-content>
   </mat-card-header>
-  <img [src]="imageSrc" [alt]="imageAlt" />
+  <img *ngIf="imageSrc" [src]="imageSrc" [alt]="imageAlt" />
 </mat-card>

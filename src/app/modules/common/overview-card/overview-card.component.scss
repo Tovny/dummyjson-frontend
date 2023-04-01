@@ -3,8 +3,13 @@ mat-card {
   height: 25rem;
   overflow: hidden;
 
+  &.text {
+    height: 20rem;
+  }
+
   &-header {
     flex-grow: 1;
+    flex-direction: column;
   }
 }
 

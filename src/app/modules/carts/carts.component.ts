@@ -4,8 +4,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'app-carts',
   templateUrl: './carts.component.html',
   styleUrls: ['./carts.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CartsComponent {
-
-}
+export class CartsComponent {}

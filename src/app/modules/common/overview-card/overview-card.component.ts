@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
 export class OverviewCardComponent {
   @Input() link!: string[];
   @Input() title!: string;
-  @Input() subtitles!: string[];
-  @Input() imageSrc!: string;
-  @Input() imageAlt!: string;
+  @Input() subtitles: string[] = [];
+  @Input() imageSrc?: string;
+  @Input() imageAlt?: string;
 }
