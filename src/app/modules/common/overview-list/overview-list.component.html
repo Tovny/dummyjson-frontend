@@ -21,15 +21,17 @@
   </li>
 </ul>
 
-<ng-template #noItems>No items found.</ng-template>
-
 <button
   *ngIf="total > items.length"
   mat-raised-button
   color="primary"
   [disabled]="loading"
   (click)="handleLoadData()">
-  Load More
+  <span *ngIf="!loading; else spinner">Load More</span>
 </button>
 
-<mat-spinner *ngIf="loading" diameter="50"></mat-spinner>
+<ng-template #spinner>
+  <mat-spinner diameter="25"></mat-spinner>
+</ng-template>
+
+<ng-template #noItems>No items found.</ng-template>
