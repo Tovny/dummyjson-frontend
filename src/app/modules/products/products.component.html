@@ -1,1 +1,15 @@
-<p>products works!</p>
+<app-overview-list
+  *ngIf="data$ | async as data"
+  [items]="data.data"
+  [total]="data.total"
+  [loading]="data.loading"
+  (loadData)="loadData($event)">
+  <ng-template #itemTemplate let-product>
+    <app-overview-card
+      [link]="[productsEndpoint, product.id]"
+      [title]="product.title"
+      [subtitles]="[product.description]"
+      [imageSrc]="product.thumbnail"
+      [imageAlt]="product.title"></app-overview-card>
+  </ng-template>
+</app-overview-list>
