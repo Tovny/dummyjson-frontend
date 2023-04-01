@@ -84,7 +84,7 @@ export interface Cart {
 }
 
 export type Response<T extends User | Product | Cart> = {
-  [k in ApiEndpoints]: T[];
+  [k in ApiEndpoints]?: T[];
 } & {
   limit: number;
   skip: number;

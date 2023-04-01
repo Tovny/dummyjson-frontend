@@ -6,24 +6,26 @@ import { ApiEndpoints } from '../models/ApiEndpoints.model';
 export class BaseApiService<T extends User | Product | Cart> {
   private _data$ = new BehaviorSubject<T[]>([]);
   public data$ = this._data$.asObservable();
-  private total?: number;
+  private _total$ = new BehaviorSubject(0);
+  public total$ = this._total$.asObservable();
+  private searchQuery = '';
 
   constructor(protected http: HttpClient, private key: ApiEndpoints) {}
 
   public fetchItems(search?: string) {
-    if (this.total !== undefined && this._data$.value.length >= this.total) {
-      return this.data$;
-    }
-
+    const searchMathes = search === this.searchQuery;
     const searchQuery = search ? `/search?q=${search}` : '';
-    const skipQuery = `${searchQuery ? '&' : '?'}skip=${this.total || 0}`;
+    const skipQuery = `${searchQuery ? '&' : '?'}skip=${this._total$.value}`;
 
     return this.http
       .get<Response<T>>(`${this.key}${searchQuery}${skipQuery}`)
       .pipe(
         tap(res => {
-          this.total = res.total;
-          this._data$.next([...this._data$.value, ...res[this.key]]);
+          this._total$.next(res.total);
+          this._data$.next([
+            ...(searchMathes ? this._data$.value : []),
+            ...(res[this.key] as T[]),
+          ]);
         }),
         map(res => res[this.key])
       );
@@ -36,7 +38,7 @@ export class BaseApiService<T extends User | Product | Cart> {
   public addItem(item: Partial<T>) {
     return this.http.post<T>(`${this.key}/add`, item).pipe(
       tap(res => {
-        this.total = this.total ?? 0 + 1;
+        this._total$.next(this._total$.value + 1);
         this._data$.next([...this._data$.value, res]);
       })
     );
@@ -57,7 +59,7 @@ export class BaseApiService<T extends User | Product | Cart> {
   public deleteItem(id: number) {
     return this.http.delete<T>(`${this.key}/${id}`).pipe(
       tap(res => {
-        this.total = this.total ?? 1 - 1;
+        this._total$.next(this._total$.value - 1);
         this._data$.next(this._data$.value.filter(item => item.id !== res.id));
       })
     );
