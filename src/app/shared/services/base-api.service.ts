@@ -10,11 +10,15 @@ export class BaseApiService<T extends User | Product | Cart> {
   public total$ = this._total$.asObservable();
   private searchQuery = '';
 
-  constructor(protected http: HttpClient, private key: ApiEndpoints) {}
+  constructor(
+    protected http: HttpClient,
+    private key: ApiEndpoints,
+    private allowSearch = true
+  ) {}
 
   public fetchItems(search = '') {
     const searchMatches = search === this.searchQuery;
-    const searchQuery = search ? `/search?q=${search}` : '';
+    const searchQuery = search && this.allowSearch ? `/search?q=${search}` : '';
     const skipQuery = `${searchQuery ? '&' : '?'}skip=${
       searchMatches ? this._data$.value.length : 0
     }`;

@@ -34,6 +34,7 @@ export class OverviewListComponent<T extends User | Product | Cart> {
   @Input() public items!: T[];
   @Input() public total!: number;
   @Input() public loading!: boolean;
+  @Input() public showSearch = true;
   @Output() public loadData = new EventEmitter<string>();
   @ContentChild('itemTemplate')
   public itemTemplateRef!: TemplateRef<unknown>;
