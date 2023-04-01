@@ -12,6 +12,7 @@ import { ProductsService } from '../../services/products.service';
 })
 export class ProductsOverviewComponent extends OverviewBaseComponent<Product> {
   public readonly productsEndpoint = ApiEndpoints.PRODUCTS;
+  public readonly searchTerm = this.service.searchQuery;
 
   constructor(protected override service: ProductsService) {
     super(service);

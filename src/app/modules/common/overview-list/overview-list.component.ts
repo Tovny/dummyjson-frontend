@@ -35,14 +35,17 @@ export class OverviewListComponent<T extends User | Product | Cart> {
   @Input() public total!: number;
   @Input() public loading!: boolean;
   @Input() public showSearch = true;
+  @Input() public set searchTerm(val: string) {
+    this.search = val;
+  }
   @Output() public loadData = new EventEmitter<string>();
   @ContentChild('itemTemplate')
   public itemTemplateRef!: TemplateRef<unknown>;
-  public searchTerm = '';
+  public search = '';
 
   public handleLoadData() {
     if (!this.loading) {
-      this.loadData.emit(this.searchTerm);
+      this.loadData.emit(this.search);
     }
   }
 

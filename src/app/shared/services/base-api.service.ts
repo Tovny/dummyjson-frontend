@@ -8,7 +8,7 @@ export class BaseApiService<T extends User | Product | Cart> {
   public data$ = this._data$.asObservable();
   private _total$ = new BehaviorSubject(0);
   public total$ = this._total$.asObservable();
-  private searchQuery = '';
+  public searchQuery = '';
 
   constructor(
     protected http: HttpClient,

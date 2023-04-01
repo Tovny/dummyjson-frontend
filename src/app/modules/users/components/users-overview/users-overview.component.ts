@@ -12,6 +12,7 @@ import { ApiEndpoints } from 'src/app/shared/models/ApiEndpoints.model';
 })
 export class UsersOverviewComponent extends OverviewBaseComponent<User> {
   public readonly usersEndpoint = ApiEndpoints.USERS;
+  public readonly searchTerm = this.service.searchQuery;
 
   constructor(protected override service: UsersService) {
     super(service);
