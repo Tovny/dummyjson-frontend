@@ -15,7 +15,9 @@ export class BaseApiService<T extends User | Product | Cart> {
   public fetchItems(search?: string) {
     const searchMathes = search === this.searchQuery;
     const searchQuery = search ? `/search?q=${search}` : '';
-    const skipQuery = `${searchQuery ? '&' : '?'}skip=${this._total$.value}`;
+    const skipQuery = `${searchQuery ? '&' : '?'}skip=${
+      searchMathes ? this._total$.value : 0
+    }`;
 
     return this.http
       .get<Response<T>>(`${this.key}${searchQuery}${skipQuery}`)
