@@ -3,14 +3,22 @@ import { RouterModule, Routes } from '@angular/router';
 import { dataResolver } from 'src/app/shared/resolvers/data.resolver';
 import { UsersService } from './services/users.service';
 import { UsersComponent } from './users.component';
+import { UsersOverviewComponent } from './components/users-overview/users-overview.component';
 
 const routes: Routes = [
   {
     path: '',
     component: UsersComponent,
-    resolve: {
-      users: dataResolver(UsersService),
-    },
+    children: [
+      {
+        path: '',
+        component: UsersOverviewComponent,
+        resolve: {
+          users: dataResolver(UsersService),
+        },
+      },
+      { path: '**', redirectTo: '' },
+    ],
   },
 ];
 

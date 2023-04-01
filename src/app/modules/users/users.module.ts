@@ -6,9 +6,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { OverviewListComponent } from '../common/overview-list/overview-list.component';
 
 import { OverviewCardComponent } from '../common/overview-card/overview-card.component';
+import { UsersOverviewComponent } from './components/users-overview/users-overview.component';
 
 @NgModule({
-  declarations: [UsersComponent],
+  declarations: [UsersComponent, UsersOverviewComponent],
   imports: [
     SharedModule,
     UsersRoutingModule,
