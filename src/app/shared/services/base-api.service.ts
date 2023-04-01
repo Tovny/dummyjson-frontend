@@ -12,20 +12,21 @@ export class BaseApiService<T extends User | Product | Cart> {
 
   constructor(protected http: HttpClient, private key: ApiEndpoints) {}
 
-  public fetchItems(search?: string) {
-    const searchMathes = search === this.searchQuery;
+  public fetchItems(search = '') {
+    const searchMatches = search === this.searchQuery;
     const searchQuery = search ? `/search?q=${search}` : '';
     const skipQuery = `${searchQuery ? '&' : '?'}skip=${
-      searchMathes ? this._total$.value : 0
+      searchMatches ? this._data$.value.length : 0
     }`;
 
     return this.http
       .get<Response<T>>(`${this.key}${searchQuery}${skipQuery}`)
       .pipe(
         tap(res => {
+          this.searchQuery = search;
           this._total$.next(res.total);
           this._data$.next([
-            ...(searchMathes ? this._data$.value : []),
+            ...(searchMatches ? this._data$.value : []),
             ...(res[this.key] as T[]),
           ]);
         }),
