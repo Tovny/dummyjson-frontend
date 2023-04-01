@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { User } from 'src/app/types';
 import { UsersService } from './services/users.service';
+import { OverviewBaseComponent } from 'src/app/shared/components/overview-base.component';
 
 @Component({
   selector: 'app-users',
@@ -8,12 +9,8 @@ import { UsersService } from './services/users.service';
   styleUrls: ['./users.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UsersComponent {
-  public users$ = this.service.data$;
-
-  constructor(private service: UsersService) {}
-
-  public trackById(_: number, user: User) {
-    return user.id;
+export class UsersComponent extends OverviewBaseComponent<User> {
+  constructor(protected override service: UsersService) {
+    super(service);
   }
 }

@@ -1,0 +1,40 @@
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  margin: 1rem;
+  margin-bottom: 0;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1rem;
+  padding: 1rem;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  width: max-content;
+  margin: auto;
+}
+
+mat-spinner {
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%);
+  top: 6rem;
+}

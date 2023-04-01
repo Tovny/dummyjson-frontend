@@ -1,3 +1,8 @@
-<ng-container *ngIf="users$ | async as users">
-  <p *ngFor="let user of users; trackBy: trackById">{{ user.firstName }}</p>
-</ng-container>
+<app-overview-list
+  *ngIf="data$ | async as data"
+  [items]="data.data"
+  [total]="data.total"
+  [loading]="data.loading"
+  (loadData)="loadData($event)">
+  <ng-template #itemTemplate let-item>{{ item.id }}</ng-template>
+</app-overview-list>

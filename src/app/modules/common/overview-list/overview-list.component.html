@@ -1,0 +1,35 @@
+<form (ngSubmit)="handleLoadData()">
+  <mat-form-field appearance="fill">
+    <mat-label>Search</mat-label>
+    <input
+      matInput
+      color="primary"
+      type="text"
+      [disabled]="loading"
+      [(ngModel)]="searchTerm"
+      [ngModelOptions]="{ standalone: true }" />
+  </mat-form-field>
+</form>
+
+<ul *ngIf="items.length; else noItems">
+  <li *ngFor="let item of items; trackBy: trackById">
+    <ng-container
+      *ngTemplateOutlet="
+        itemTemplateRef;
+        context: { $implicit: item }
+      "></ng-container>
+  </li>
+</ul>
+
+<ng-template #noItems>No items found.</ng-template>
+
+<button
+  *ngIf="total > items.length"
+  mat-raised-button
+  color="primary"
+  [disabled]="loading"
+  (click)="handleLoadData()">
+  Load More
+</button>
+
+<mat-spinner *ngIf="loading" diameter="50"></mat-spinner>
