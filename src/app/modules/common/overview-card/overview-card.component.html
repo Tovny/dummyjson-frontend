@@ -1,6 +1,8 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>{{ title }}</mat-card-title>
+    <mat-card-title>
+      <a mat-button [routerLink]="link">{{ title }}</a>
+    </mat-card-title>
     <mat-card-subtitle *ngFor="let subtitle of subtitles">
       {{ subtitle }}
     </mat-card-subtitle>
