@@ -1,0 +1,11 @@
+nav {
+  position: sticky;
+  top: 0;
+}
+
+mat-spinner {
+  position: absolute;
+  left: 50%;
+  top: 8rem;
+  transform: translate(-50%, -50%);
+}
