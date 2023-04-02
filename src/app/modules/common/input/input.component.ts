@@ -2,9 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
+  OnChanges,
   OnDestroy,
   Optional,
   Self,
+  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -30,8 +32,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputComponent implements ControlValueAccessor, OnDestroy {
+export class InputComponent
+  implements ControlValueAccessor, OnChanges, OnDestroy
+{
   @Input() type: 'text' | 'number' | 'email' = 'text';
+  @Input() disabled?: boolean;
   public control = new FormControl<unknown>(null);
   private sub?: Subscription;
 
@@ -41,6 +46,15 @@ export class InputComponent implements ControlValueAccessor, OnDestroy {
     this.sub = this.control.valueChanges.subscribe(val =>
       this.controlDirective.control?.setValue(val)
     );
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const disabledChange = changes['disabled'];
+    if (disabledChange) {
+      disabledChange.currentValue
+        ? this.control.disable()
+        : this.control.enable();
+    }
   }
 
   public changeValueTo(value: unknown): void {
