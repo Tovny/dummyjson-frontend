@@ -12,6 +12,8 @@ import { MatCardModule } from '@angular/material/card';
 import { DetailHeaderComponent } from '../common/detail-header/detail-header.component';
 import { UserCrudComponent } from './components/user-crud/user-crud.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { InputComponent } from '../common/input/input.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatCardModule,
     DetailHeaderComponent,
     MatSnackBarModule,
+    InputComponent,
+    ReactiveFormsModule,
   ],
 })
 export class UsersModule {}

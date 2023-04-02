@@ -30,6 +30,12 @@ const routes: Routes = [
         path: 'edit/:id',
         component: UserCrudComponent,
         resolve: { user: itemResolver(UsersService, ApiEndpoints.USERS) },
+        data: { title: 'Edit user' },
+      },
+      {
+        path: 'create',
+        component: UserCrudComponent,
+        data: { title: 'Create user' },
       },
     ],
   },

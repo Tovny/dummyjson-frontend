@@ -1,18 +1,36 @@
 import { Cart, Product, User } from 'src/app/types';
 import { BaseApiService } from '../services/base-api.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { tap } from 'rxjs';
+import { map, tap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 export class CrudBaseComponent<T extends User | Product | Cart> {
+  public title!: string;
+  public formDisabled$ = this.form.statusChanges.pipe(
+    map(status => status === 'DISABLED')
+  );
+
   constructor(
     protected service: BaseApiService<T>,
+    protected route: ActivatedRoute,
     protected fb: FormBuilder,
     protected snackbar: MatSnackBar,
     protected form: FormGroup<any>
-  ) {}
+  ) {
+    this.title = this.route.snapshot.data['title'];
+  }
 
-  public addItem(item: Partial<T>) {
+  public handleSubmit() {
+    const item = this.form.getRawValue() as Partial<T>;
+
+    if (typeof item.id === 'number') {
+      return this.editItem(item.id, item);
+    }
+    this.addItem(item);
+  }
+
+  private addItem(item: Partial<T>) {
     this.form.disable();
 
     this.service
@@ -29,7 +47,7 @@ export class CrudBaseComponent<T extends User | Product | Cart> {
       });
   }
 
-  public editItem(id: number, item: Partial<T>) {
+  private editItem(id: number, item: Partial<T>) {
     this.form.disable();
 
     this.service
@@ -45,21 +63,7 @@ export class CrudBaseComponent<T extends User | Product | Cart> {
       });
   }
 
-  public deleteItem(id: number) {
-    this.form.disable();
-
-    this.service.deleteItem(id).subscribe({
-      next: () => {
-        this.openSnackbar('Item successfully deleted!');
-      },
-      error: () => {
-        this.form.enable();
-        this.openSnackbar('Failed to delete item!');
-      },
-    });
-  }
-
   private openSnackbar(msg: string) {
-    this.snackbar.open(msg, 'Dismiss');
+    this.snackbar.open(msg, 'Dismiss', { duration: 1000 * 5 });
   }
 }
