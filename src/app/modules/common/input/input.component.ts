@@ -41,11 +41,11 @@ export class InputComponent
   private sub?: Subscription;
 
   constructor(@Self() @Optional() private controlDirective: NgControl) {
-    this.controlDirective.valueAccessor = this;
+    if (controlDirective) {
+      controlDirective.valueAccessor = this;
 
-    this.sub = this.control.valueChanges.subscribe(val =>
-      this.controlDirective.control?.setValue(val)
-    );
+      this.sub = this.control.valueChanges.subscribe(val => this.onChange(val));
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -57,12 +57,8 @@ export class InputComponent
     }
   }
 
-  public changeValueTo(value: unknown): void {
-    this.control.patchValue(value);
-  }
-
   public writeValue(value: unknown): void {
-    this.onChange(value);
+    this.control.setValue(value);
   }
 
   public registerOnChange(fn: (value: unknown) => void): void {
