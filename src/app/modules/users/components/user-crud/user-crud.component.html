@@ -2,6 +2,7 @@
 
 <form [formGroup]="form" (ngSubmit)="handleSubmit()">
   <app-input formControlName="firstName">First name</app-input>
+  <app-input formControlName="lastName">Last name</app-input>
   <app-input type="number" formControlName="age">Age</app-input>
   <app-input type="email" formControlName="email">E-Mail</app-input>
   <legend>Address</legend>
