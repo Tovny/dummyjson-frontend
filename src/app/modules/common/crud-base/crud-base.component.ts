@@ -1,10 +1,15 @@
 import { Cart, Product, User } from 'src/app/types';
-import { BaseApiService } from '../services/base-api.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { BaseApiService } from 'src/app/shared/services/base-api.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
+@Component({
+  template: '',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
 export class CrudBaseComponent<T extends User | Product | Cart> {
   public title!: string;
   public formDisabled$ = this.form.statusChanges.pipe(
@@ -16,7 +21,7 @@ export class CrudBaseComponent<T extends User | Product | Cart> {
     protected route: ActivatedRoute,
     protected fb: FormBuilder,
     protected snackbar: MatSnackBar,
-    protected form: FormGroup<any>
+    protected form: FormGroup
   ) {
     this.title = this.route.snapshot.data['title'];
   }

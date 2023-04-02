@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CrudBaseComponent } from 'src/app/shared/components/crud-base.component';
 import { User } from 'src/app/types';
 import { UsersService } from '../../services/users.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { CrudBaseComponent } from 'src/app/modules/common/crud-base/crud-base.component';
 
 @Component({
   selector: 'app-user-crud',

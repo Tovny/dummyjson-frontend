@@ -12,8 +12,8 @@ import { MatCardModule } from '@angular/material/card';
 import { DetailHeaderComponent } from '../common/detail-header/detail-header.component';
 import { UserCrudComponent } from './components/user-crud/user-crud.component';
 import { InputComponent } from '../common/input/input.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { ItemDetailsBaseModule } from '../common/item-details-base/item-details-base.module';
+import { CrudBaseModule } from '../common/crud-base/crud-base.module';
 
 @NgModule({
   declarations: [
@@ -30,8 +30,8 @@ import { ItemDetailsBaseModule } from '../common/item-details-base/item-details-
     MatCardModule,
     DetailHeaderComponent,
     InputComponent,
-    ReactiveFormsModule,
     ItemDetailsBaseModule,
+    CrudBaseModule,
   ],
 })
 export class UsersModule {}
