@@ -7,6 +7,7 @@ import { UsersOverviewComponent } from './components/users-overview/users-overvi
 import { UserComponent } from './components/user/user.component';
 import { itemResolver } from 'src/app/shared/resolvers/item.resolver';
 import { ApiEndpoints } from 'src/app/shared/models/ApiEndpoints.model';
+import { UserCrudComponent } from './components/user-crud/user-crud.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,11 @@ const routes: Routes = [
         component: UserComponent,
         resolve: { user: itemResolver(UsersService, ApiEndpoints.USERS) },
       },
-      { path: '**', redirectTo: '' },
+      {
+        path: 'edit/:id',
+        component: UserCrudComponent,
+        resolve: { user: itemResolver(UsersService, ApiEndpoints.USERS) },
+      },
     ],
   },
 ];

@@ -10,9 +10,16 @@ import { UsersOverviewComponent } from './components/users-overview/users-overvi
 import { UserComponent } from './components/user/user.component';
 import { MatCardModule } from '@angular/material/card';
 import { DetailHeaderComponent } from '../common/detail-header/detail-header.component';
+import { UserCrudComponent } from './components/user-crud/user-crud.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
-  declarations: [UsersComponent, UsersOverviewComponent, UserComponent],
+  declarations: [
+    UsersComponent,
+    UsersOverviewComponent,
+    UserComponent,
+    UserCrudComponent,
+  ],
   imports: [
     SharedModule,
     UsersRoutingModule,
@@ -20,6 +27,7 @@ import { DetailHeaderComponent } from '../common/detail-header/detail-header.com
     OverviewCardComponent,
     MatCardModule,
     DetailHeaderComponent,
+    MatSnackBarModule,
   ],
 })
 export class UsersModule {}
