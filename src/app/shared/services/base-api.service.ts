@@ -8,7 +8,11 @@ export class BaseApiService<T extends User | Product | Cart> {
   public data$ = this._data$.asObservable();
   private _total$ = new BehaviorSubject(0);
   public total$ = this._total$.asObservable();
-  public searchQuery = '';
+  private searchQuery = '';
+
+  public get searchTerm() {
+    return this.searchQuery;
+  }
 
   constructor(
     protected http: HttpClient,

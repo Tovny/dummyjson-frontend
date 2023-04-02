@@ -3,7 +3,6 @@
   [items]="data.data"
   [total]="data.total"
   [loading]="data.loading"
-  [searchTerm]="searchTerm"
   (loadData)="loadData($event)">
   <ng-template #itemTemplate let-product>
     <app-overview-card
