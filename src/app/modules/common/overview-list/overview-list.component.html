@@ -3,7 +3,9 @@
     type="text"
     [disabled]="loading"
     [(ngModel)]="search"
-    [ngModelOptions]="{ standalone: true }"></app-input>
+    [ngModelOptions]="{ standalone: true }">
+    Search
+  </app-input>
 </form>
 
 <ul *ngIf="items.length; else noItems">

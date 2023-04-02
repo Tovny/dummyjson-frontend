@@ -74,7 +74,6 @@ export class InputComponent
   }
 
   public onChange = (value: unknown): unknown => {
-    console.log(value);
     return value;
   };
 
