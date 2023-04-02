@@ -5,6 +5,7 @@
   [loading]="data.loading"
   [showSearch]="false"
   (loadData)="loadData($event)">
+  Carts
   <ng-template #itemTemplate let-cart>
     <app-overview-card [link]="[cart.id]" [title]="'Cart ID: ' + cart.id">
       <mat-card-subtitle *ngFor="let prod of cart.products">

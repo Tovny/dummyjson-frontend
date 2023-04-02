@@ -8,6 +8,8 @@
   </app-input>
 </form>
 
+<h1><ng-content></ng-content></h1>
+
 <ul *ngIf="items.length; else noItems">
   <li *ngFor="let item of items; trackBy: trackById">
     <ng-container

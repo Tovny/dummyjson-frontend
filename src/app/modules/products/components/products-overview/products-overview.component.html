@@ -4,6 +4,7 @@
   [total]="data.total"
   [loading]="data.loading"
   (loadData)="loadData($event)">
+  Products
   <ng-template #itemTemplate let-product>
     <app-overview-card
       [link]="[product.id]"

@@ -4,6 +4,7 @@
   [total]="data.total"
   [loading]="data.loading"
   (loadData)="loadData($event)">
+  Users
   <ng-template #itemTemplate let-user>
     <app-overview-card
       [link]="[user.id]"
