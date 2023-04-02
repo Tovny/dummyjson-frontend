@@ -15,7 +15,7 @@
     mat-raised-button
     type="submit"
     color="primary"
-    [disabled]="(formDisabled$ | async) === true">
+    [disabled]="(formDisabled$ | async) === true || !form.dirty">
     Submit
   </button>
 </form>
