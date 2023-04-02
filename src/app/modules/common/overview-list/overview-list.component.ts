@@ -11,9 +11,8 @@ import {
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { Cart, Product, User } from 'src/app/types';
+import { InputComponent } from '../input/input.component';
 
 @Component({
   standalone: true,
@@ -25,8 +24,7 @@ import { Cart, Product, User } from 'src/app/types';
     FormsModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    MatInputModule,
-    MatFormFieldModule,
+    InputComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

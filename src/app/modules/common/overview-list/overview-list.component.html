@@ -1,14 +1,9 @@
 <form *ngIf="showSearch" (ngSubmit)="handleLoadData()">
-  <mat-form-field appearance="fill">
-    <mat-label>Search</mat-label>
-    <input
-      matInput
-      color="primary"
-      type="text"
-      [disabled]="loading"
-      [(ngModel)]="search"
-      [ngModelOptions]="{ standalone: true }" />
-  </mat-form-field>
+  <app-input
+    type="text"
+    [disabled]="loading"
+    [(ngModel)]="search"
+    [ngModelOptions]="{ standalone: true }"></app-input>
 </form>
 
 <ul *ngIf="items.length; else noItems">
