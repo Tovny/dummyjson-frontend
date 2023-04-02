@@ -1,10 +1,18 @@
 import { Cart, Product, User } from 'src/app/types';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { BaseApiService } from 'src/app/shared/services/base-api.service';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  InjectionToken,
+} from '@angular/core';
+import { generateForm } from 'src/app/utils/generate-form.util';
+
+export const ITEM_KEY_TOKEN = new InjectionToken('item');
 
 @Component({
   template: '',
@@ -12,6 +20,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class CrudBaseComponent<T extends User | Product | Cart> {
   public title!: string;
+  public form = new FormGroup({});
   public formDisabled$ = this.form.statusChanges.pipe(
     map(status => status === 'DISABLED')
   );
@@ -19,11 +28,12 @@ export class CrudBaseComponent<T extends User | Product | Cart> {
   constructor(
     protected service: BaseApiService<T>,
     protected route: ActivatedRoute,
-    protected fb: FormBuilder,
     protected snackbar: MatSnackBar,
-    protected form: FormGroup
+    @Inject(ITEM_KEY_TOKEN) protected emptyItem: Partial<T>
   ) {
-    this.title = this.route.snapshot.data['title'];
+    this.title = route.snapshot.data['title'];
+    const item = route.snapshot.data['item'];
+    this.form = generateForm(item || emptyItem);
   }
 
   public handleSubmit() {

@@ -29,7 +29,7 @@ const routes: Routes = [
       {
         path: 'edit/:id',
         component: UserCrudComponent,
-        resolve: { user: itemResolver(UsersService, ApiEndpoints.USERS) },
+        resolve: { item: itemResolver(UsersService, ApiEndpoints.USERS) },
         data: { title: 'Edit user' },
       },
       {
