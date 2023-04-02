@@ -3,25 +3,28 @@
     <mat-card-title>
       <app-detail-header
         [title]="fullName"
-        [id]="user.id"
-        [endpoint]="usersEndpoint"></app-detail-header>
+        [id]="item.id"
+        [endpoint]="usersEndpoint"
+        [disabled]="(disabled$ | async) === true"
+        [deleted]="(deleted$ | async) === true"
+        (delete)="deleteItem(item.id)"></app-detail-header>
     </mat-card-title>
-    <mat-card-subtitle>Phone: {{ user.phone }}</mat-card-subtitle>
-    <mat-card-subtitle>Email: {{ user.email }}</mat-card-subtitle>
+    <mat-card-subtitle>Phone: {{ item.phone }}</mat-card-subtitle>
+    <mat-card-subtitle>Email: {{ item.email }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <div>Born: {{ user.birthDate | date }}</div>
-    <div>Address: {{ user.address.address }}, {{ user.address.city }}</div>
-    <div>Education: {{ user.university }}</div>
+    <div>Born: {{ item.birthDate | date }}</div>
+    <div>Address: {{ item.address.address }}, {{ item.address.city }}</div>
+    <div>Education: {{ item.university }}</div>
 
     <mat-card-subtitle>Employment:</mat-card-subtitle>
-    <mat-card-content> {{ user.company.name }} </mat-card-content>
+    <mat-card-content> {{ item.company.name }} </mat-card-content>
     <mat-card-content>
-      {{ user.company.department }}, {{ user.company.title }}
+      {{ item.company.department }}, {{ item.company.title }}
     </mat-card-content>
     <mat-card-content>
-      {{ user.company.address.address }}, {{ user.company.address.city }}
+      {{ item.company.address.address }}, {{ item.company.address.city }}
     </mat-card-content>
   </mat-card-content>
-  <img [src]="user.image" [alt]="fullName" />
+  <img [src]="item.image" [alt]="fullName" />
 </mat-card>

@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,6 +23,9 @@ export class DetailHeaderComponent {
   @Input() title!: string;
   @Input() endpoint!: ApiEndpoints;
   @Input() id!: number;
+  @Input() disabled = false;
+  @Input() deleted = false;
+  @Output() delete = new EventEmitter<void>();
 
   public get link() {
     return ['/', this.endpoint, 'edit', this.id];

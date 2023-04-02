@@ -1,6 +1,20 @@
 <div>
   {{ title }}
-  <a mat-icon-button [routerLink]="link" aria-label="Edit item">
-    <mat-icon>edit</mat-icon>
-  </a>
+  <div>
+    <a
+      mat-icon-button
+      [routerLink]="link"
+      aria-label="Edit item"
+      [disabled]="deleted">
+      <mat-icon>edit</mat-icon>
+    </a>
+    <button
+      mat-icon-button
+      color="warn"
+      aria-label="Delete item"
+      [disabled]="disabled || deleted"
+      (click)="delete.emit()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
 </div>
