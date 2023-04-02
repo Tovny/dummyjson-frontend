@@ -6,7 +6,7 @@
   (loadData)="loadData($event)">
   <ng-template #itemTemplate let-user>
     <app-overview-card
-      [link]="[usersEndpoint, user.id]"
+      [link]="[user.id]"
       [title]="user.firstName + ' ' + user.lastName"
       [subtitles]="['Phone: ' + user.phone, 'E-Mail: ' + user.email]"
       [imageSrc]="user.image"

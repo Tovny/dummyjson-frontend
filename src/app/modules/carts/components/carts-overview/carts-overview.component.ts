@@ -11,7 +11,6 @@ import { CartsService } from '../../services/carts.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CartsOverviewComponent extends OverviewBaseComponent<Cart> {
-  public readonly cartsEndpoint = ApiEndpoints.CARTS;
   public readonly productsEndpoint = ApiEndpoints.PRODUCTS;
 
   constructor(protected override service: CartsService) {

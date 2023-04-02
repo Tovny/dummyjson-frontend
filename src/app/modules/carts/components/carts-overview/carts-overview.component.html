@@ -6,9 +6,7 @@
   [showSearch]="false"
   (loadData)="loadData($event)">
   <ng-template #itemTemplate let-cart>
-    <app-overview-card
-      [link]="[cartsEndpoint, cart.id]"
-      [title]="'Cart ID: ' + cart.id">
+    <app-overview-card [link]="[cart.id]" [title]="'Cart ID: ' + cart.id">
       <mat-card-subtitle *ngFor="let prod of cart.products">
         <div>
           <a mat-button [routerLink]="['/', productsEndpoint, prod.id]">

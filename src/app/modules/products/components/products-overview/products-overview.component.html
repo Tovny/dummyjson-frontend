@@ -6,7 +6,7 @@
   (loadData)="loadData($event)">
   <ng-template #itemTemplate let-product>
     <app-overview-card
-      [link]="[productsEndpoint, product.id]"
+      [link]="[product.id]"
       [title]="product.title"
       [subtitles]="[product.description]"
       [imageSrc]="product.thumbnail"
