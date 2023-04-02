@@ -5,7 +5,7 @@
         [title]="fullName"
         [id]="item.id"
         [endpoint]="usersEndpoint"
-        [disabled]="(disabled$ | async) === true"
+        [deleting]="(disabled$ | async) === true"
         [deleted]="(deleted$ | async) === true"
         (delete)="deleteItem(item.id)"></app-detail-header>
     </mat-card-title>

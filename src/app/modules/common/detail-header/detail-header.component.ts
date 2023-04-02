@@ -10,11 +10,18 @@ import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { ApiEndpoints } from 'src/app/shared/models/ApiEndpoints.model';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-detail-header',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatButtonModule, MatIconModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './detail-header.component.html',
   styleUrls: ['./detail-header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,7 +30,7 @@ export class DetailHeaderComponent {
   @Input() title!: string;
   @Input() endpoint!: ApiEndpoints;
   @Input() id!: number;
-  @Input() disabled = false;
+  @Input() deleting = false;
   @Input() deleted = false;
   @Output() delete = new EventEmitter<void>();
 

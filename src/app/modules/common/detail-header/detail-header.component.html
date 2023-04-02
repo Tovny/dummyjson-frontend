@@ -1,20 +1,25 @@
 <div>
   {{ title }}
-  <div>
+  <div *ngIf="!deleted">
     <a
       mat-icon-button
       [routerLink]="link"
       aria-label="Edit item"
-      [disabled]="deleted">
+      [disabled]="deleting">
       <mat-icon>edit</mat-icon>
     </a>
     <button
+      *ngIf="!deleting; else spinner"
       mat-icon-button
       color="warn"
       aria-label="Delete item"
-      [disabled]="disabled || deleted"
+      [disabled]="deleted"
       (click)="delete.emit()">
       <mat-icon>delete</mat-icon>
     </button>
   </div>
 </div>
+
+<ng-template #spinner>
+  <mat-spinner color="warn" diameter="25"></mat-spinner>
+</ng-template>
