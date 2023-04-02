@@ -1,0 +1,14 @@
+:host ::ng-deep {
+  .mat-mdc-card-header-text {
+    width: 100%;
+  }
+}
+
+img {
+  margin-inline: auto;
+  width: 300px;
+}
+
+mat-card > mat-card-content {
+  margin-top: 0.5rem;
+}

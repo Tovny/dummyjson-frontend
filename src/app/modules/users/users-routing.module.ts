@@ -4,6 +4,9 @@ import { dataResolver } from 'src/app/shared/resolvers/data.resolver';
 import { UsersService } from './services/users.service';
 import { UsersComponent } from './users.component';
 import { UsersOverviewComponent } from './components/users-overview/users-overview.component';
+import { UserComponent } from './components/user/user.component';
+import { itemResolver } from 'src/app/shared/resolvers/item.resolver';
+import { ApiEndpoints } from 'src/app/shared/models/ApiEndpoints.model';
 
 const routes: Routes = [
   {
@@ -16,6 +19,11 @@ const routes: Routes = [
         resolve: {
           users: dataResolver(UsersService),
         },
+      },
+      {
+        path: ':id',
+        component: UserComponent,
+        resolve: { user: itemResolver(UsersService, ApiEndpoints.USERS) },
       },
       { path: '**', redirectTo: '' },
     ],
