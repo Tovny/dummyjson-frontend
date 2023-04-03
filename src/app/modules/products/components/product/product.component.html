@@ -21,8 +21,10 @@
     <mat-card-content> Stock: {{ item.stock }} </mat-card-content>
     <mat-card-content> Price: {{ item.price }} </mat-card-content>
   </mat-card-content>
-  <img
-    *ngFor="let image of item.images; index as i"
-    [src]="image"
-    [alt]="getImageAlt(i)" />
+  <div class="images">
+    <img
+      *ngFor="let image of item.images; index as i"
+      [src]="image"
+      [alt]="getImageAlt(i)" />
+  </div>
 </mat-card>
