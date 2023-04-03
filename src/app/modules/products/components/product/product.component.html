@@ -4,22 +4,24 @@
   <mat-card-header>
     <mat-card-title>
       <app-detail-header
-        [title]="item.title"
+        [title]="showItem(item.title)"
         [id]="item.id"
         [endpoint]="productsEndpoint"
         [deleting]="(disabled$ | async) === true"
         [deleted]="(deleted$ | async) === true"
         (delete)="deleteItem(item.id)"></app-detail-header>
     </mat-card-title>
-    <mat-card-subtitle>Brand: {{ item.brand }}</mat-card-subtitle>
-    <mat-card-subtitle>Category: {{ item.category }}</mat-card-subtitle>
+    <mat-card-subtitle>Brand: {{ showItem(item.brand) }}</mat-card-subtitle>
+    <mat-card-subtitle
+      >Category: {{ showItem(item.category) }}</mat-card-subtitle
+    >
   </mat-card-header>
   <mat-card-content>
-    <div>{{ item.description }}</div>
+    <div>{{ showItem(item.description) }}</div>
     <mat-card-subtitle>Info:</mat-card-subtitle>
-    <mat-card-content>Rating: {{ item.rating }} </mat-card-content>
-    <mat-card-content> Stock: {{ item.stock }} </mat-card-content>
-    <mat-card-content> Price: {{ item.price }} </mat-card-content>
+    <mat-card-content>Rating: {{ showItem(item.rating) }} </mat-card-content>
+    <mat-card-content> Stock: {{ showItem(item.stock) }} </mat-card-content>
+    <mat-card-content> Price: {{ showItem(item.price) }} </mat-card-content>
   </mat-card-content>
   <div class="images">
     <img

@@ -63,14 +63,14 @@ export class ItemDetailsBaseComponent<T extends User | Product | Cart> {
       .subscribe();
   }
 
-  public showItem(item: string | undefined | null) {
+  public showItem(item: string | number | undefined | null) {
     if (!item) {
       return NO_DATA_AVAILABLE;
     }
-    return item;
+    return `${item}`;
   }
 
-  public combineItems(separator: string, ...items: string[]) {
+  public combineItems(separator: string, ...items: (string | number)[]) {
     if (!items?.find(elt => !!elt)) {
       return NO_DATA_AVAILABLE;
     }
