@@ -10,54 +10,6 @@
       "></ng-container>
   </ng-container>
 
-  <ng-template let-item let-form="form" #controller>
-    <ng-container
-      *ngTemplateOutlet="
-        item.type === fieldsetType
-          ? fieldset
-          : item.type === selectType
-          ? selectController
-          : inputController;
-        context: { $implicit: item, form: form }
-      "></ng-container>
-  </ng-template>
-
-  <ng-template let-item let-form="form" #inputController>
-    <app-input [type]="item.type" [formControl]="form.get(item.control)">
-      {{ item.label }}
-    </app-input>
-  </ng-template>
-
-  <ng-template let-item let-form="form" #selectController>
-    <mat-form-field appearance="fill">
-      <mat-label>{{ item.label }}</mat-label>
-      <mat-select [formControl]="form.get(item.control)">
-        <mat-option
-          *ngFor="let option of item.options; trackBy: trackByOption"
-          [value]="option">
-          {{ option }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </ng-template>
-
-  <ng-template let-items let-form="form" #fieldset>
-    <fieldset [formGroup]="form.get(items.control)">
-      <legend>{{ items.label }}</legend>
-      <ng-container
-        *ngFor="let item of items.children; trackBy: trackByLabelAndControl">
-        <ng-container
-          *ngTemplateOutlet="
-            controller;
-            context: {
-              $implicit: item,
-              form: form.get(items.control)
-            }
-          "></ng-container>
-      </ng-container>
-    </fieldset>
-  </ng-template>
-
   <button
     mat-raised-button
     type="submit"
@@ -66,3 +18,105 @@
     Submit
   </button>
 </form>
+
+<ng-template let-item let-form="form" #controller>
+  <ng-container
+    *ngTemplateOutlet="
+      getTemplate(item.type);
+      context: { $implicit: item, form: form }
+    "></ng-container>
+</ng-template>
+
+<ng-template let-item let-form="form" #input>
+  <app-input
+    [type]="item.type"
+    [formControl]="getControl(form, item.control, item.isArrayControl)">
+    {{ item.label }}
+  </app-input>
+</ng-template>
+
+<ng-template let-item let-form="form" #textarea>
+  <mat-form-field>
+    <mat-label>{{ item.label }}</mat-label>
+    <textarea
+      matInput
+      [formControl]="
+        getControl(form, item.control, item.isArrayControl)
+      "></textarea>
+  </mat-form-field>
+</ng-template>
+
+<ng-template let-item let-form="form" #select>
+  <mat-form-field appearance="fill">
+    <mat-label>{{ item.label }}</mat-label>
+    <mat-select
+      [formControl]="getControl(form, item.control, item.isArrayControl)">
+      <mat-option
+        *ngFor="let option of item.options; trackBy: trackByOption"
+        [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-template>
+
+<ng-template let-items let-form="form" #fieldset>
+  <fieldset [formGroup]="form.get(items.control)">
+    <legend>{{ items.label }}</legend>
+    <ng-container
+      *ngFor="
+        let item of items.children;
+        index as i;
+        trackBy: trackByLabelAndControl
+      ">
+      <ng-container
+        *ngTemplateOutlet="
+          !isArrayControl(form.get(items.control))
+            ? groupControl
+            : arrayControl;
+          context: { $implicit: item, form: form.get(items.control) }
+        ">
+      </ng-container>
+    </ng-container>
+    <button
+      type="button"
+      mat-button
+      color="primary"
+      (click)="addControl(form.get(items.control))">
+      Add item
+    </button>
+  </fieldset>
+</ng-template>
+
+<ng-template let-item let-form="form" #groupControl>
+  <ng-container
+    *ngTemplateOutlet="
+      controller;
+      context: {
+        $implicit: item,
+        form: form
+      }
+    "></ng-container>
+</ng-template>
+
+<ng-template let-item let-form="form" #arrayControl>
+  <ng-container *ngFor="let control of form.controls; index as i">
+    <div class="array-control">
+      <ng-container
+        *ngTemplateOutlet="
+          controller;
+          context: {
+            $implicit: item,
+            form: control
+          }
+        "></ng-container>
+      <button
+        type="button"
+        mat-button
+        color="primary"
+        (click)="removeControl(form, i)">
+        Remove item
+      </button>
+    </div>
+  </ng-container>
+</ng-template>

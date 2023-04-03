@@ -32,5 +32,17 @@ export const PRODUCT_FORM_FIELDS: FormField[] = [
   { type: FormFieldTypes.NUMBER, label: 'Rating', control: 'rating' },
   { type: FormFieldTypes.NUMBER, label: 'Stock', control: 'stock' },
   { type: FormFieldTypes.TEXT, label: 'Thumbnail', control: 'thumbnail' },
-  { type: FormFieldTypes.FIELDSET, label: 'Images', control: 'images' },
+  {
+    type: FormFieldTypes.FIELDSET,
+    label: 'Images',
+    control: 'images',
+    children: [
+      {
+        type: FormFieldTypes.TEXT,
+        label: 'Image',
+        control: '',
+        isArrayControl: true,
+      },
+    ],
+  },
 ];

@@ -8,6 +8,16 @@ fieldset {
   margin-bottom: 1.5rem;
 }
 
+.array-control {
+  display: flex;
+  gap: 1rem;
+
+  > *:not(button) {
+    flex-grow: 1;
+    width: 100%;
+  }
+}
+
 button {
   margin-inline: auto;
   margin-top: 1rem;

@@ -1,5 +1,10 @@
 import { Cart, FormField, Product, User } from 'src/app/types';
-import { FormGroup } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  FormGroup,
+} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -7,10 +12,14 @@ import { BaseApiService } from 'src/app/shared/services/base-api.service';
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   Inject,
   InjectionToken,
+  TemplateRef,
+  ViewChild,
 } from '@angular/core';
 import { generateForm } from 'src/app/utils/generate-form.util';
+import { FormFieldTypes } from 'src/app/shared/models/form-field-types.model';
 
 export const ITEM_KEY_TOKEN = new InjectionToken('item');
 
@@ -24,6 +33,14 @@ export class CrudBaseComponent<T extends User | Product | Cart> {
   public formDisabled$ = this.form.statusChanges.pipe(
     map(status => status === 'DISABLED')
   );
+  @ViewChild('input', { static: true })
+  public inputRef!: TemplateRef<unknown>;
+  @ViewChild('textarea', { static: true })
+  public textareaRef!: TemplateRef<unknown>;
+  @ViewChild('select', { static: true })
+  public selectRef!: TemplateRef<unknown>;
+  @ViewChild('fieldset', { static: true })
+  public fieldsetRef!: TemplateRef<unknown>;
 
   constructor(
     protected service: BaseApiService<T>,
@@ -80,6 +97,55 @@ export class CrudBaseComponent<T extends User | Product | Cart> {
 
   private openSnackbar(msg: string) {
     this.snackbar.open(msg, 'Dismiss', { duration: 1000 * 5 });
+  }
+
+  public getTemplate(type: FormFieldTypes) {
+    switch (type) {
+      case FormFieldTypes.TEXTAREA:
+        return this.textareaRef;
+      case FormFieldTypes.SELECT:
+        return this.selectRef;
+      case FormFieldTypes.FIELDSET:
+        return this.fieldsetRef;
+      default:
+        return this.inputRef;
+    }
+  }
+
+  public isFormArray(control: AbstractControl) {
+    return control instanceof FormArray;
+  }
+
+  public getControl(
+    control: AbstractControl,
+    key: string,
+    isArrayControl = false
+  ): FormControl<unknown> {
+    if (isArrayControl) {
+      return control as FormControl<unknown>;
+    }
+    return control.get(key) as FormControl<unknown>;
+  }
+
+  public isArrayControl(control: AbstractControl) {
+    return control instanceof FormArray;
+  }
+
+  public getFieldsetControl(control: AbstractControl, index: number) {
+    if (control instanceof FormArray) {
+      return control.at(index);
+    }
+    return control;
+  }
+
+  public addControl(control: FormArray) {
+    control.push(new FormControl(null));
+    this.form.markAsDirty();
+  }
+
+  public removeControl(control: FormArray, index: number) {
+    control.removeAt(index);
+    this.form.markAsDirty();
   }
 
   public trackByLabelAndControl(_: number, { label, control }: FormField) {
