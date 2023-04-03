@@ -9,6 +9,6 @@ import { Cart } from 'src/app/types';
 })
 export class CartsService extends BaseApiService<Cart> {
   constructor(protected override http: HttpClient) {
-    super(http, ApiEndpoints.CARTS, false);
+    super(http, ApiEndpoints.CARTS, 20, false);
   }
 }

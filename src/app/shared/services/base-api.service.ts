@@ -14,9 +14,14 @@ export class BaseApiService<T extends User | Product | Cart> {
     return this.searchQuery;
   }
 
+  public get itemsTake() {
+    return this.take;
+  }
+
   constructor(
     protected http: HttpClient,
     private key: ApiEndpoints,
+    private take = 30,
     private allowSearch = true
   ) {}
 
@@ -25,7 +30,7 @@ export class BaseApiService<T extends User | Product | Cart> {
     const searchQuery = search && this.allowSearch ? `/search?q=${search}` : '';
     const skipQuery = `${searchQuery ? '&' : '?'}skip=${
       searchMatches ? this._data$.value.length : 0
-    }`;
+    }&take=${this.take}`;
 
     return this.http
       .get<Response<T>>(`${this.key}${searchQuery}${skipQuery}`)

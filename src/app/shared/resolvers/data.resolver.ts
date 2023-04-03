@@ -11,7 +11,7 @@ export const dataResolver = <T extends User | Product | Cart>(
 
     return apiService.data$.pipe(
       switchMap(data => {
-        if (data.length && !apiService.searchTerm) {
+        if (data.length >= apiService.itemsTake && !apiService.searchTerm) {
           return of(data);
         }
         return apiService.fetchItems().pipe(switchMap(() => apiService.data$));

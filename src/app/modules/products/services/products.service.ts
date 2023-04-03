@@ -9,6 +9,6 @@ import { Product } from 'src/app/types';
 })
 export class ProductsService extends BaseApiService<Product> {
   constructor(protected override http: HttpClient) {
-    super(http, ApiEndpoints.PRODUCTS);
+    super(http, ApiEndpoints.PRODUCTS, 30);
   }
 }

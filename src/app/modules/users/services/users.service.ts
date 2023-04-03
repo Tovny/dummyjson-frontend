@@ -9,6 +9,6 @@ import { User } from 'src/app/types';
 })
 export class UsersService extends BaseApiService<User> {
   constructor(protected override http: HttpClient) {
-    super(http, ApiEndpoints.USERS);
+    super(http, ApiEndpoints.USERS, 30);
   }
 }
