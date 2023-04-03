@@ -1,5 +1,6 @@
-import { ApiEndpoints } from './shared/models/ApiEndpoints.model';
+import { ApiEndpoints } from './shared/models/api-endpoints.model';
 import { accounts as Accounts } from 'google-one-tap';
+import { FormFieldTypes } from './shared/models/form-field-types.model';
 
 declare var window: Window & {
   google: { accounts: Accounts };
@@ -103,3 +104,10 @@ export type Response<T extends User | Product | Cart> = {
   skip: number;
   total: number;
 };
+
+export interface FormField {
+  type: FormFieldTypes;
+  control: string;
+  label: string;
+  children?: FormField[];
+}
