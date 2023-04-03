@@ -11,6 +11,7 @@ import { ProductCrudComponent } from './components/product-crud/product-crud.com
 import { ItemDetailsBaseModule } from '../common/item-details-base/item-details-base.module';
 import { MatCardModule } from '@angular/material/card';
 import { DetailHeaderComponent } from '../common/detail-header/detail-header.component';
+import { CrudBaseModule } from '../common/crud-base/crud-base.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { DetailHeaderComponent } from '../common/detail-header/detail-header.com
     ItemDetailsBaseModule,
     MatCardModule,
     DetailHeaderComponent,
+    CrudBaseModule,
   ],
 })
 export class ProductsModule {}
