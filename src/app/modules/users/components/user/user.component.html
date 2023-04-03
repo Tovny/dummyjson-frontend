@@ -16,16 +16,24 @@
   </mat-card-header>
   <mat-card-content>
     <div>Born: {{ item.birthDate | date }}</div>
-    <div>Address: {{ item.address.address }}, {{ item.address.city }}</div>
+    <div>
+      Address: {{ combineItems(', ', item.address.address, item.address.city) }}
+    </div>
     <div>Education: {{ item.university }}</div>
 
     <mat-card-subtitle>Employment:</mat-card-subtitle>
     <mat-card-content> {{ item.company.name }} </mat-card-content>
     <mat-card-content>
-      {{ item.company.department }}, {{ item.company.title }}
+      {{ combineItems(', ', item.company.department, item.company.title) }}
     </mat-card-content>
     <mat-card-content>
-      {{ item.company.address.address }}, {{ item.company.address.city }}
+      {{
+        combineItems(
+          ', ',
+          item.company.address.address,
+          item.company.address.city
+        )
+      }}
     </mat-card-content>
   </mat-card-content>
   <img [src]="item.image" [alt]="fullName" />

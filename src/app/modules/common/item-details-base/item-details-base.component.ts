@@ -62,6 +62,13 @@ export class ItemDetailsBaseComponent<T extends User | Product | Cart> {
       .subscribe();
   }
 
+  public combineItems(separator: string, ...items: string[]) {
+    if (!items?.find(elt => !!elt)) {
+      return 'No data available';
+    }
+    return items.join(separator);
+  }
+
   private openSnackbar(msg: string) {
     this.snackbar.open(msg, 'Dismiss', { duration: 5000 });
   }
