@@ -65,34 +65,32 @@ export class CrudBaseComponent<T extends User | Product | Cart> {
   private addItem(item: Partial<T>) {
     this.form.disable();
 
-    this.service
-      .addItem(item)
-      .pipe(tap(() => this.form.enable))
-      .subscribe({
-        next: () => {
-          this.form.reset();
-          this.openSnackbar('Item added successfully!');
-        },
-        error: () => {
-          this.openSnackbar('Failed to add item!');
-        },
-      });
+    this.service.addItem(item).subscribe({
+      next: () => {
+        this.form.reset();
+        this.form.enable();
+        this.openSnackbar('Item added successfully!');
+      },
+      error: () => {
+        this.form.enable();
+        this.openSnackbar('Failed to add item!');
+      },
+    });
   }
 
   private editItem(id: number, item: Partial<T>) {
     this.form.disable();
 
-    this.service
-      .updateItem(id, item)
-      .pipe(tap(() => this.form.enable()))
-      .subscribe({
-        next: () => {
-          this.openSnackbar('Item successfully updated!');
-        },
-        error: () => {
-          this.openSnackbar('Failed to update item!');
-        },
-      });
+    this.service.updateItem(id, item).subscribe({
+      next: () => {
+        this.form.enable();
+        this.openSnackbar('Item successfully updated!');
+      },
+      error: () => {
+        this.form.enable();
+        this.openSnackbar('Failed to update item!');
+      },
+    });
   }
 
   private openSnackbar(msg: string) {
