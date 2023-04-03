@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormField, User } from 'src/app/types';
+import { User } from 'src/app/types';
 import { UsersService } from '../../services/users.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -9,8 +9,8 @@ import { EMPTY_USER, USER_FORM_FIELDS } from '../../constants/constants';
 
 @Component({
   selector: 'app-user-crud',
-  templateUrl: './user-crud.component.html',
-  styleUrls: ['./user-crud.component.scss'],
+  templateUrl: '../../../common/crud-base/crud-base.component.html',
+  styleUrls: ['../../../common/crud-base/crud-base.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserCrudComponent extends CrudBaseComponent<User> {
@@ -24,13 +24,5 @@ export class UserCrudComponent extends CrudBaseComponent<User> {
     protected override snackbar: MatSnackBar
   ) {
     super(service, route, snackbar, EMPTY_USER);
-  }
-
-  public trackByLabelAndControl(_: number, { label, control }: FormField) {
-    return `${label}_${control}`;
-  }
-
-  public trackByOption(_: number, option: string) {
-    return option;
   }
 }

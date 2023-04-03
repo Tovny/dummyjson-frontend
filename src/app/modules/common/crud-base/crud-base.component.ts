@@ -1,4 +1,4 @@
-import { Cart, Product, User } from 'src/app/types';
+import { Cart, FormField, Product, User } from 'src/app/types';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, tap } from 'rxjs';
@@ -80,5 +80,13 @@ export class CrudBaseComponent<T extends User | Product | Cart> {
 
   private openSnackbar(msg: string) {
     this.snackbar.open(msg, 'Dismiss', { duration: 1000 * 5 });
+  }
+
+  public trackByLabelAndControl(_: number, { label, control }: FormField) {
+    return `${label}_${control}`;
+  }
+
+  public trackByOption(_: number, option: string) {
+    return option;
   }
 }
