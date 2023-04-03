@@ -1,30 +1,11 @@
-import { Address, User } from '../types';
+import {
+  EMPTY_ADDRESS,
+  EMPTY_BANK,
+  EMPTY_COMPANY,
+} from 'src/app/constants/empty-items';
+import { FormField, User } from 'src/app/types';
 
-const EMPTY_ADDRESS: Address = {
-  address: '',
-  city: '',
-  coordinates: {
-    lat: 0,
-    lng: 0,
-  },
-  postalCode: '',
-  state: '',
-};
-
-const EMPTY_BANK = {
-  cardExpire: '',
-  cardNumber: '',
-  cardType: '',
-  currency: '',
-  iban: '',
-};
-
-const EMPTY_COMPANY = {
-  address: EMPTY_ADDRESS,
-  department: '',
-  name: '',
-  title: '',
-};
+export const USER_FORM_FIELDS: FormField[] = [];
 
 export const EMPTY_USER: Partial<User> = {
   address: EMPTY_ADDRESS,
@@ -44,7 +25,6 @@ export const EMPTY_USER: Partial<User> = {
     type: '',
   },
   height: 0,
-  id: 0,
   image: '',
   ip: '',
   lastName: '',
