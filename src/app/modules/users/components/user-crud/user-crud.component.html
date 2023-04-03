@@ -1,17 +1,63 @@
 <h1>{{ title }}</h1>
 
 <form [formGroup]="form" (ngSubmit)="handleSubmit()">
-  <app-input formControlName="firstName">First name</app-input>
-  <app-input formControlName="lastName">Last name</app-input>
-  <app-input type="number" formControlName="age">Age</app-input>
-  <app-input type="email" formControlName="email">E-Mail</app-input>
-  <legend>Address</legend>
-  <fieldset formGroupName="address">
-    <app-input formControlName="address">Address</app-input>
-    <app-input formControlName="city">City</app-input>
-    <app-input formControlName="postalCode">Postal code</app-input>
-    <app-input formControlName="state">State</app-input>
-  </fieldset>
+  <ng-container
+    *ngFor="let item of formFields; trackBy: trackByLabelAndControl">
+    <ng-container
+      *ngTemplateOutlet="
+        controller;
+        context: { $implicit: item, form: form }
+      "></ng-container>
+  </ng-container>
+
+  <ng-template let-item let-form="form" #controller>
+    <ng-container
+      *ngTemplateOutlet="
+        item.type === fieldsetType
+          ? fieldset
+          : item.type === selectType
+          ? selectController
+          : inputController;
+        context: { $implicit: item, form: form }
+      "></ng-container>
+  </ng-template>
+
+  <ng-template let-item let-form="form" #inputController>
+    <app-input [type]="item.type" [formControl]="form.get(item.control)">
+      {{ item.label }}
+    </app-input>
+  </ng-template>
+
+  <ng-template let-item let-form="form" #selectController>
+    <mat-form-field appearance="fill">
+      <mat-label>{{ item.label }}</mat-label>
+      <mat-select [formControl]="form.get(item.control)">
+        <mat-option
+          *ngFor="let option of item.options; trackBy: trackByOption"
+          [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-template>
+
+  <ng-template let-items let-form="form" #fieldset>
+    <fieldset [formGroup]="form.get(items.control)">
+      <legend>{{ items.label }}</legend>
+      <ng-container
+        *ngFor="let item of items.children; trackBy: trackByLabelAndControl">
+        <ng-container
+          *ngTemplateOutlet="
+            controller;
+            context: {
+              $implicit: item,
+              form: form.get(items.control)
+            }
+          "></ng-container>
+      </ng-container>
+    </fieldset>
+  </ng-template>
+
   <button
     mat-raised-button
     type="submit"

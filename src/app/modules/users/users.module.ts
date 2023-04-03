@@ -14,6 +14,7 @@ import { UserCrudComponent } from './components/user-crud/user-crud.component';
 import { InputComponent } from '../common/input/input.component';
 import { ItemDetailsBaseModule } from '../common/item-details-base/item-details-base.module';
 import { CrudBaseModule } from '../common/crud-base/crud-base.module';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CrudBaseModule } from '../common/crud-base/crud-base.module';
     InputComponent,
     ItemDetailsBaseModule,
     CrudBaseModule,
+    MatSelectModule,
   ],
 })
 export class UsersModule {}

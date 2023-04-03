@@ -1,4 +1,7 @@
 export enum FormFieldTypes {
-  INPUT = 'input',
+  TEXT = 'text',
+  NUMBER = 'number',
+  EMAIL = 'email',
+  SELECT = 'select',
   FIELDSET = 'fieldset',
 }
