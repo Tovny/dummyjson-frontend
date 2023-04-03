@@ -13,6 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Cart, Product, User } from 'src/app/types';
 import { InputComponent } from '../input/input.component';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -25,6 +27,8 @@ import { InputComponent } from '../input/input.component';
     MatButtonModule,
     MatProgressSpinnerModule,
     InputComponent,
+    MatIconModule,
+    RouterModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -29,6 +29,10 @@
   <span *ngIf="!loading; else spinner">Load More</span>
 </button>
 
+<a mat-fab color="primary" [routerLink]="['create']" aria-label="Create item">
+  <mat-icon>add_card</mat-icon>
+</a>
+
 <ng-template #spinner>
   <mat-spinner diameter="25"></mat-spinner>
 </ng-template>
