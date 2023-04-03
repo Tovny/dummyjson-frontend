@@ -8,9 +8,11 @@ import { OverviewListComponent } from '../common/overview-list/overview-list.com
 import { OverviewCardComponent } from '../common/overview-card/overview-card.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { CartComponent } from './components/cart/cart.component';
+import { CartCrudComponent } from './components/cart-crud/cart-crud.component';
 
 @NgModule({
-  declarations: [CartsComponent, CartsOverviewComponent],
+  declarations: [CartsComponent, CartsOverviewComponent, CartComponent, CartCrudComponent],
   imports: [
     SharedModule,
     CartsRoutingModule,
