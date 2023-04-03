@@ -13,4 +13,11 @@ export class UsersOverviewComponent extends OverviewBaseComponent<User> {
   constructor(protected override service: UsersService) {
     super(service);
   }
+
+  public getSubtitles(user: User) {
+    return [
+      'Phone: ' + this.showItem(user.phone),
+      'E-Mail: ' + this.showItem(user.email),
+    ];
+  }
 }

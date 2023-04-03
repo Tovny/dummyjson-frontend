@@ -1,6 +1,7 @@
 import { Cart, Product, User } from 'src/app/types';
 import { BaseApiService } from '../services/base-api.service';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
+import { NO_DATA_AVAILABLE } from 'src/app/constants/constants';
 
 export class OverviewBaseComponent<T extends User | Product | Cart> {
   private _loading$ = new BehaviorSubject(false);
@@ -20,5 +21,19 @@ export class OverviewBaseComponent<T extends User | Product | Cart> {
       next: () => this._loading$.next(false),
       error: () => this._loading$.next(false),
     });
+  }
+
+  public showItem(item: string | undefined) {
+    if (!item) {
+      return NO_DATA_AVAILABLE;
+    }
+    return item;
+  }
+
+  public combineItems(separator: string, ...items: string[]) {
+    if (!items?.find(elt => !!elt)) {
+      return NO_DATA_AVAILABLE;
+    }
+    return items.join(separator);
   }
 }

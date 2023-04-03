@@ -6,6 +6,7 @@ import { UsersService } from '../../services/users.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemDetailsBaseComponent } from 'src/app/modules/common/item-details-base/item-details-base.component';
+import { NO_DATA_AVAILABLE } from 'src/app/constants/constants';
 
 @Component({
   selector: 'app-user',
@@ -17,6 +18,9 @@ export class UserComponent extends ItemDetailsBaseComponent<User> {
   public readonly usersEndpoint = ApiEndpoints.USERS;
 
   public get fullName() {
+    if (!this.item.firstName && !this.item.lastName) {
+      return NO_DATA_AVAILABLE;
+    }
     return `${this.item.firstName} ${this.item.lastName}`;
   }
 

@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { MatDialog } from '@angular/material/dialog';
+import { NO_DATA_AVAILABLE } from 'src/app/constants/constants';
 
 export const DATA_KEY_TOKEN = new InjectionToken<string>('dataKey');
 
@@ -62,9 +63,16 @@ export class ItemDetailsBaseComponent<T extends User | Product | Cart> {
       .subscribe();
   }
 
+  public showItem(item: string | undefined | null) {
+    if (!item) {
+      return NO_DATA_AVAILABLE;
+    }
+    return item;
+  }
+
   public combineItems(separator: string, ...items: string[]) {
     if (!items?.find(elt => !!elt)) {
-      return 'No data available';
+      return NO_DATA_AVAILABLE;
     }
     return items.join(separator);
   }

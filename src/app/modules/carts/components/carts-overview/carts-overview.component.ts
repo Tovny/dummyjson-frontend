@@ -3,6 +3,7 @@ import { OverviewBaseComponent } from 'src/app/shared/components/overview-base.c
 import { ApiEndpoints } from 'src/app/shared/models/api-endpoints.model';
 import { Cart } from 'src/app/types';
 import { CartsService } from '../../services/carts.service';
+import { NO_DATA_AVAILABLE } from 'src/app/constants/constants';
 
 @Component({
   selector: 'app-carts-overview',
@@ -17,7 +18,17 @@ export class CartsOverviewComponent extends OverviewBaseComponent<Cart> {
     super(service);
   }
 
-  public getCartSubtitles(cart: Cart) {
-    return cart.products.map(prod => `${prod.title}, ${prod.quantity}`);
+  public getProductPriceAndQuantity(prod: {
+    discountedPrice: number;
+    quantity: number;
+  }) {
+    if (!prod.discountedPrice && !prod.quantity) {
+      return NO_DATA_AVAILABLE;
+    }
+    return this.combineItems(
+      ', ',
+      `${prod.discountedPrice}`,
+      `${prod.quantity}x`
+    );
   }
 }

@@ -8,8 +8,8 @@
   <ng-template #itemTemplate let-product>
     <app-overview-card
       [link]="[product.id]"
-      [title]="product.title"
-      [subtitles]="[product.description]"
+      [title]="showItem(product.title)"
+      [subtitles]="[showItem(product.description)]"
       [imageSrc]="product.thumbnail"
       [imageAlt]="product.title"></app-overview-card>
   </ng-template>

@@ -1,7 +1,10 @@
 div {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+
+  div {
+    margin-left: auto;
+  }
 }
 
 mat-spinner {

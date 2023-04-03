@@ -8,9 +8,11 @@
   <ng-template #itemTemplate let-user>
     <app-overview-card
       [link]="[user.id]"
-      [title]="user.firstName + ' ' + user.lastName"
-      [subtitles]="['Phone: ' + user.phone, 'E-Mail: ' + user.email]"
+      [title]="combineItems(' ', user.firstName, user.lastName)"
+      [subtitles]="getSubtitles(user)"
       [imageSrc]="user.image"
-      [imageAlt]="user.firstName + ' ' + user.lastName"></app-overview-card>
+      [imageAlt]="
+        combineItems(' ', user.firstName, user.lastName)
+      "></app-overview-card>
   </ng-template>
 </app-overview-list>

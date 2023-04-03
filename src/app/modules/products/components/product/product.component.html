@@ -1,1 +1,28 @@
-<p>product works!</p>
+<p *ngIf="deleted$ | async">DELETED</p>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <app-detail-header
+        [title]="item.title"
+        [id]="item.id"
+        [endpoint]="productsEndpoint"
+        [deleting]="(disabled$ | async) === true"
+        [deleted]="(deleted$ | async) === true"
+        (delete)="deleteItem(item.id)"></app-detail-header>
+    </mat-card-title>
+    <mat-card-subtitle>Brand: {{ item.brand }}</mat-card-subtitle>
+    <mat-card-subtitle>Category: {{ item.category }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div>{{ item.description }}</div>
+    <mat-card-subtitle>Info:</mat-card-subtitle>
+    <mat-card-content>Rating: {{ item.rating }} </mat-card-content>
+    <mat-card-content> Stock: {{ item.stock }} </mat-card-content>
+    <mat-card-content> Price: {{ item.price }} </mat-card-content>
+  </mat-card-content>
+  <img
+    *ngFor="let image of item.images; index as i"
+    [src]="image"
+    [alt]="getImageAlt(i)" />
+</mat-card>

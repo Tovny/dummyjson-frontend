@@ -11,16 +11,16 @@
       <mat-card-subtitle *ngFor="let prod of cart.products">
         <div>
           <a mat-button [routerLink]="['/', productsEndpoint, prod.id]">
-            {{ prod.title }}
+            {{ showItem(prod.title) }}
           </a>
-          {{ prod.discountedPrice }}, {{ prod.quantity }}x
+          {{ getProductPriceAndQuantity(prod) }}
         </div>
       </mat-card-subtitle>
       <mat-card-subtitle class="total">
-        Total: {{ cart.total }}
+        Total: {{ showItem(cart.total) }}
       </mat-card-subtitle>
       <mat-card-subtitle>
-        After discount: {{ cart.discountedTotal }}
+        After discount: {{ showItem(cart.discountedTotal) }}
       </mat-card-subtitle>
     </app-overview-card>
   </ng-template>
