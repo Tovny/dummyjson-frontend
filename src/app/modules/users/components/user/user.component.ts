@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiEndpoints } from 'src/app/shared/models/ApiEndpoints.model';
+import { ApiEndpoints } from 'src/app/shared/models/api-endpoints.model';
 import { User } from 'src/app/types';
 import { UsersService } from '../../services/users.service';
 import { MatSnackBar } from '@angular/material/snack-bar';

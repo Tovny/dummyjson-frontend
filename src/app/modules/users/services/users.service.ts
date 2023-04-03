@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ApiEndpoints } from 'src/app/shared/models/ApiEndpoints.model';
+import { ApiEndpoints } from 'src/app/shared/models/api-endpoints.model';
 import { BaseApiService } from 'src/app/shared/services/base-api.service';
 import { User } from 'src/app/types';
 

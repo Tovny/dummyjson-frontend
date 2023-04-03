@@ -8,7 +8,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { ApiEndpoints } from 'src/app/shared/models/ApiEndpoints.model';
+import { ApiEndpoints } from 'src/app/shared/models/api-endpoints.model';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 

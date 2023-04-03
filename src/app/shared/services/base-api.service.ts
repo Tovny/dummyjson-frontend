@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, tap } from 'rxjs';
 import { Cart, Product, Response, User } from 'src/app/types';
-import { ApiEndpoints } from '../models/ApiEndpoints.model';
+import { ApiEndpoints } from '../models/api-endpoints.model';
 
 export class BaseApiService<T extends User | Product | Cart> {
   private _data$ = new BehaviorSubject<T[]>([]);

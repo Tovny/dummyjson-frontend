@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { OverviewBaseComponent } from 'src/app/shared/components/overview-base.component';
-import { ApiEndpoints } from 'src/app/shared/models/ApiEndpoints.model';
+import { ApiEndpoints } from 'src/app/shared/models/api-endpoints.model';
 import { Cart } from 'src/app/types';
 import { CartsService } from '../../services/carts.service';
 

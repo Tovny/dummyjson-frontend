@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { environment } from 'src/assets/environment/environment';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root',

@@ -3,7 +3,7 @@ import { catchError, of, switchMap } from 'rxjs';
 import { Cart, Product, User } from 'src/app/types';
 import { BaseApiService } from '../services/base-api.service';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { ApiEndpoints } from '../models/ApiEndpoints.model';
+import { ApiEndpoints } from '../models/api-endpoints.model';
 
 export const itemResolver = <T extends User | Product | Cart>(
   service: ProviderToken<BaseApiService<T>>,

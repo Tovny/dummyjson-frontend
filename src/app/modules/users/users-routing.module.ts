@@ -6,7 +6,7 @@ import { UsersComponent } from './users.component';
 import { UsersOverviewComponent } from './components/users-overview/users-overview.component';
 import { UserComponent } from './components/user/user.component';
 import { itemResolver } from 'src/app/shared/resolvers/item.resolver';
-import { ApiEndpoints } from 'src/app/shared/models/ApiEndpoints.model';
+import { ApiEndpoints } from 'src/app/shared/models/api-endpoints.model';
 import { UserCrudComponent } from './components/user-crud/user-crud.component';
 
 const routes: Routes = [
