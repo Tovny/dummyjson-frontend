@@ -22,9 +22,9 @@ const routes: Routes = [
         },
       },
       {
-        path: ':id',
-        component: UserComponent,
-        resolve: { user: itemResolver(UsersService, ApiEndpoints.USERS) },
+        path: 'create',
+        component: UserCrudComponent,
+        data: { title: 'Create user' },
       },
       {
         path: 'edit/:id',
@@ -33,9 +33,9 @@ const routes: Routes = [
         data: { title: 'Edit user' },
       },
       {
-        path: 'create',
-        component: UserCrudComponent,
-        data: { title: 'Create user' },
+        path: ':id',
+        component: UserComponent,
+        resolve: { user: itemResolver(UsersService, ApiEndpoints.USERS) },
       },
     ],
   },
