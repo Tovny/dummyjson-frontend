@@ -62,6 +62,10 @@ export class CrudBaseComponent<T extends User | Product | Cart> {
   }
 
   public handleSubmit() {
+    if (!this.form.valid) {
+      return;
+    }
+
     const item = this.form.getRawValue() as Partial<T>;
 
     if (typeof item.id === 'number') {

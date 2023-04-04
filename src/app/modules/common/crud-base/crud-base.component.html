@@ -107,10 +107,12 @@
         "></ng-container>
       <button
         type="button"
-        mat-button
+        mat-icon-button
         color="primary"
+        aria-label="Remove item"
+        title="Remove item"
         (click)="removeControl(form, i)">
-        Remove item
+        <mat-icon>delete</mat-icon>
       </button>
     </div>
   </ng-container>

@@ -1,0 +1,38 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+fieldset {
+  padding-top: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  button {
+    margin-top: 0;
+  }
+}
+
+.array-control {
+  display: flex;
+  gap: 1rem;
+
+  > *:not(button) {
+    flex-grow: 1;
+    width: 100%;
+  }
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  > div {
+    width: 100%;
+  }
+}
+
+button {
+  margin-inline: auto;
+  margin-top: 1rem;
+}

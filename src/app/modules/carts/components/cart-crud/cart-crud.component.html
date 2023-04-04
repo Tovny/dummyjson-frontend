@@ -1,1 +1,64 @@
-<p>cart-crud works!</p>
+<h1>{{ title }}</h1>
+
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <app-select
+    *ngIf="users$ | async as users"
+    formControlName="userId"
+    [options]="users">
+    User
+  </app-select>
+
+  <fieldset formGroupName="products">
+    <legend>Products</legend>
+    <fieldset
+      *ngFor="let control of productsControl.controls; index as i"
+      class="product">
+      <legend>Product #{{ i + 1 }}</legend>
+      <div>
+        <app-select
+          *ngIf="products$ | async as products"
+          [options]="products"
+          [formControl]="getProductControl(i, 'id')">
+          Product
+        </app-select>
+        <app-input
+          type="number"
+          [min]="0"
+          [formControl]="getProductControl(i, 'quantity')">
+          Quantity
+        </app-input>
+      </div>
+      <button
+        type="button"
+        mat-icon-button
+        color="primary"
+        aria-label="Remove product"
+        title="Remove product"
+        (click)="removeControl(productsControl, i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </fieldset>
+
+    <button type="button" mat-button color="primary" (click)="addControl()">
+      Add product
+    </button>
+  </fieldset>
+
+  Total: {{ total | number : '1.0-2' }}
+
+  <button
+    mat-raised-button
+    type="submit"
+    color="primary"
+    [disabled]="(formDisabled$ | async) === true || !form.dirty || !form.valid">
+    Submit
+  </button>
+</form>
+
+<ng-template let-item let-form="form" #controller>
+  <ng-container
+    *ngTemplateOutlet="
+      getTemplate(item.type);
+      context: { $implicit: item, form: form }
+    "></ng-container>
+</ng-template>

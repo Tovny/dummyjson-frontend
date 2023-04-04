@@ -9,6 +9,7 @@ export class BaseApiService<T extends User | Product | Cart> {
   private _total$ = new BehaviorSubject(0);
   public total$ = this._total$.asObservable();
   private searchQuery = '';
+  private createdItems = 0;
 
   public get searchTerm() {
     return this.searchQuery;
@@ -29,7 +30,7 @@ export class BaseApiService<T extends User | Product | Cart> {
     const searchMatches = search === this.searchQuery;
     const searchQuery = search && this.allowSearch ? `/search?q=${search}` : '';
     const skipQuery = `${searchQuery ? '&' : '?'}skip=${
-      searchMatches ? this._data$.value.length : 0
+      searchMatches ? this._data$.value.length - this.createdItems : 0
     }&take=${this.take}`;
 
     return this.http
@@ -56,6 +57,7 @@ export class BaseApiService<T extends User | Product | Cart> {
       tap(res => {
         this._total$.next(this._total$.value + 1);
         this._data$.next([...this._data$.value, res]);
+        this.createdItems++;
       })
     );
   }
