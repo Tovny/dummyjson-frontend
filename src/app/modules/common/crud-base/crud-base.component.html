@@ -30,7 +30,9 @@
 <ng-template let-item let-form="form" #input>
   <app-input
     [type]="item.type"
-    [formControl]="getControl(form, item.control, item.isArrayControl)">
+    [min]="item.min"
+    [max]="item.max"
+    [formControl]="getControl(form, item.control)">
     {{ item.label }}
   </app-input>
 </ng-template>
@@ -40,17 +42,14 @@
     <mat-label>{{ item.label }}</mat-label>
     <textarea
       matInput
-      [formControl]="
-        getControl(form, item.control, item.isArrayControl)
-      "></textarea>
+      [formControl]="getControl(form, item.control)"></textarea>
   </mat-form-field>
 </ng-template>
 
 <ng-template let-item let-form="form" #select>
   <mat-form-field appearance="fill">
     <mat-label>{{ item.label }}</mat-label>
-    <mat-select
-      [formControl]="getControl(form, item.control, item.isArrayControl)">
+    <mat-select [formControl]="getControl(form, item.control)">
       <mat-option
         *ngFor="let option of item.options; trackBy: trackByOption"
         [value]="option">
@@ -79,6 +78,7 @@
       </ng-container>
     </ng-container>
     <button
+      *ngIf="isArrayControl(form.get(items.control))"
       type="button"
       mat-button
       color="primary"

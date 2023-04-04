@@ -20,6 +20,7 @@ import {
 } from '@angular/core';
 import { generateForm } from 'src/app/utils/generate-form.util';
 import { FormFieldTypes } from 'src/app/shared/models/form-field-types.model';
+import { ARRAY_CONTROL } from 'src/app/constants/constants';
 
 export const ITEM_KEY_TOKEN = new InjectionToken('item');
 
@@ -115,12 +116,11 @@ export class CrudBaseComponent<T extends User | Product | Cart> {
   }
 
   public getControl(
-    control: AbstractControl,
-    key: string,
-    isArrayControl = false
+    control: FormControl<unknown>,
+    key: string
   ): FormControl<unknown> {
-    if (isArrayControl) {
-      return control as FormControl<unknown>;
+    if (key === ARRAY_CONTROL) {
+      return control;
     }
     return control.get(key) as FormControl<unknown>;
   }
