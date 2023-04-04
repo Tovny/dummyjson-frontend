@@ -3,21 +3,13 @@ import {
   Component,
   Input,
   OnChanges,
-  OnDestroy,
-  Optional,
-  Self,
   SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  ControlValueAccessor,
-  FormControl,
-  NgControl,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { ControlValueAccessor, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Subject, takeUntil } from 'rxjs';
+import { BaseCVAComponent } from 'src/app/shared/components/cva-base.component';
 
 @Component({
   selector: 'app-input',
@@ -33,24 +25,13 @@ import { Subject, takeUntil } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputComponent
-  implements ControlValueAccessor, OnChanges, OnDestroy
+  extends BaseCVAComponent
+  implements ControlValueAccessor, OnChanges
 {
   @Input() type: 'text' | 'number' | 'email' = 'text';
   @Input() min?: number;
   @Input() max?: number;
   @Input() disabled?: boolean;
-  public control = new FormControl<unknown>(null);
-  private destroy$ = new Subject<void>();
-
-  constructor(@Self() @Optional() private controlDirective: NgControl) {
-    if (controlDirective) {
-      controlDirective.valueAccessor = this;
-
-      this.control.valueChanges
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(val => this.onChange(val));
-    }
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     const disabledChange = changes['disabled'];
@@ -59,28 +40,5 @@ export class InputComponent
         ? this.control.disable()
         : this.control.enable();
     }
-  }
-
-  public writeValue(value: unknown): void {
-    this.control.setValue(value);
-  }
-
-  public registerOnChange(fn: (value: unknown) => void): void {
-    this.onChange = fn;
-  }
-
-  public registerOnTouched(fn: () => void): void {
-    this.onTouch = fn;
-  }
-
-  public onChange = (value: unknown): unknown => {
-    return value;
-  };
-
-  public onTouch = (): void => {};
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

@@ -106,9 +106,14 @@ export type Response<T extends User | Product | Cart> = {
   total: number;
 };
 
+export interface Option {
+  label: string;
+  value: string | number;
+}
+
 export interface FormField {
   type: FormFieldTypes;
-  options?: string[];
+  options?: Option[];
   control: string;
   label: string;
   children?: FormField[];

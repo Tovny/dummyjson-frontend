@@ -47,16 +47,11 @@
 </ng-template>
 
 <ng-template let-item let-form="form" #select>
-  <mat-form-field appearance="fill">
-    <mat-label>{{ item.label }}</mat-label>
-    <mat-select [formControl]="getControl(form, item.control)">
-      <mat-option
-        *ngFor="let option of item.options; trackBy: trackByOption"
-        [value]="option">
-        {{ option }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <app-select
+    [options]="item.options"
+    [formControl]="getControl(form, item.control)">
+    {{ item.label }}
+  </app-select>
 </ng-template>
 
 <ng-template let-items let-form="form" #fieldset>
