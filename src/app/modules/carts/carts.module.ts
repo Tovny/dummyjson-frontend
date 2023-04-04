@@ -13,6 +13,8 @@ import { CartCrudComponent } from './components/cart-crud/cart-crud.component';
 import { CrudBaseModule } from '../common/crud-base/crud-base.module';
 import { SelectComponent } from '../common/select/select.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DetailHeaderComponent } from '../common/detail-header/detail-header.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
     CrudBaseModule,
     SelectComponent,
     HttpClientModule,
+    DetailHeaderComponent,
+    MatDialogModule,
   ],
 })
 export class CartsModule {}

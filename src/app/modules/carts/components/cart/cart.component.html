@@ -1,1 +1,35 @@
-<p>cart works!</p>
+<p *ngIf="deleted$ | async">DELETED</p>
+
+<mat-card *ngIf="user$ | async as user">
+  <mat-card-header>
+    <mat-card-title>
+      <app-detail-header
+        [title]="getTitle(user)"
+        [id]="item.id"
+        [endpoint]="cartsEndpoint"
+        [deleting]="(disabled$ | async) === true"
+        [deleted]="(deleted$ | async) === true"
+        (delete)="deleteItem(item.id)"></app-detail-header>
+    </mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-card-subtitle>Products:</mat-card-subtitle>
+    <div
+      *ngFor="let product of item.products; trackBy: trackById"
+      class="product">
+      <mat-card-content
+        ><a [routerLink]="['/', productsEndpoint, product.id]">
+          Title: {{ product.title }}
+        </a>
+      </mat-card-content>
+      <mat-card-content> Quantity: {{ product.quantity }} </mat-card-content>
+      <mat-card-content>
+        Total: {{ product.discountedPrice }}
+      </mat-card-content>
+    </div>
+    <mat-card-subtitle>Total:</mat-card-subtitle>
+    <mat-card-content> Items: {{ item.totalProducts }} </mat-card-content>
+    <mat-card-content> Price: {{ item.discountedTotal }} </mat-card-content>
+  </mat-card-content>
+</mat-card>
