@@ -64,7 +64,6 @@ export class CartCrudComponent
       });
 
     this.form.controls.userId.addValidators(Validators.required);
-    this.form.controls.discountedTotal.addValidators(Validators.min(0.1));
 
     // sync up total and the rest of the product controls
     this.sub = this.productsControl.valueChanges.subscribe(() => {
@@ -106,17 +105,17 @@ export class CartCrudComponent
   }
 
   public override addControl() {
-    this.productsControl.push(
-      generateForm({
-        id: 0,
-        title: '',
-        price: 0,
-        quantity: 0,
-        total: 0,
-        discountPercentage: 0,
-        discountedPrice: 0,
-      })
-    );
+    const control = generateForm({
+      id: 0,
+      title: '',
+      price: 0,
+      quantity: 0,
+      total: 0,
+      discountPercentage: 0,
+      discountedPrice: 0,
+    });
+    control.controls.quantity.addValidators(Validators.min(1));
+    this.productsControl.push(control);
   }
 
   public getProductControl(index: number, key: ProductControls) {
