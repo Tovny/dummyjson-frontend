@@ -1,4 +1,11 @@
-import { Cart, FormField, Product, User } from 'src/app/types';
+import {
+  Cart,
+  FormField,
+  FormType,
+  GeneratedForm,
+  Product,
+  User,
+} from 'src/app/types';
 import {
   AbstractControl,
   FormArray,
@@ -30,7 +37,7 @@ export const ITEM_KEY_TOKEN = new InjectionToken('item');
 })
 export class CrudBaseComponent<T extends User | Product | Cart> {
   public title!: string;
-  public form = new FormGroup({});
+  public form: GeneratedForm<T> = new FormGroup({} as FormType<T>);
   public formDisabled$ = this.form.statusChanges.pipe(
     map(status => status === 'DISABLED')
   );
@@ -51,7 +58,7 @@ export class CrudBaseComponent<T extends User | Product | Cart> {
   ) {
     this.title = route.snapshot.data['title'];
     const item = route.snapshot.data['item'];
-    this.form = generateForm(item || emptyItem);
+    this.form = generateForm<T>(item || emptyItem);
   }
 
   public handleSubmit() {

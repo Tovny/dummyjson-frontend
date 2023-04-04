@@ -1,6 +1,7 @@
 import { ApiEndpoints } from './shared/models/api-endpoints.model';
 import { accounts as Accounts } from 'google-one-tap';
 import { FormFieldTypes } from './shared/models/form-field-types.model';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 declare var window: Window & {
   google: { accounts: Accounts };
@@ -108,8 +109,28 @@ export type Response<T extends User | Product | Cart> = {
 export interface FormField {
   type: FormFieldTypes;
   options?: string[];
-  isArrayControl?: boolean;
   control: string;
   label: string;
   children?: FormField[];
+  min?: number;
+  max?: number;
 }
+
+type ExtractElement<T> = T extends unknown[]
+  ? T extends readonly (infer ElementType)[]
+    ? ElementType
+    : never
+  : T;
+
+export type FormType<T> = {
+  [K in keyof T]: T[K] extends unknown[]
+    ? FormArray<
+        //@ts-expect-error: Type does satisfy AbstractControl constraint
+        ExtractElement<FormType<T[K]>>
+      >
+    : T[K] extends object
+    ? FormGroup<FormType<T[K]>>
+    : FormControl<T[K]>;
+};
+
+export type GeneratedForm<T> = FormGroup<FormType<T>>;

@@ -4,17 +4,20 @@ import {
   FormGroup,
   UntypedFormArray,
 } from '@angular/forms';
+import { GeneratedForm } from '../types';
 
-export const generateForm = (item: Record<string, any>): FormGroup => {
-  const form = new FormGroup({});
-  Object.keys(item).forEach(key => buildForm(form, item[key], key));
+export const generateForm = <T extends object>(item: T): GeneratedForm<T> => {
+  const form = new FormGroup({}) as unknown as GeneratedForm<T>;
+  Object.keys(item).forEach(key =>
+    buildForm(form, (item as Record<string, unknown>)[key], key)
+  );
 
   return form;
 };
 
 const buildForm = (
   form: FormGroup | FormArray,
-  item: any,
+  item: unknown | unknown | Record<string, unknown>,
   key: string
 ): void => {
   if (Array.isArray(item)) {
@@ -23,14 +26,13 @@ const buildForm = (
     return item.forEach(curr => buildForm(array, curr, ''));
   }
 
-  if (typeof item === 'object') {
+  if (item && typeof item === 'object') {
     const group = new FormGroup({});
-    if ('push' in form) {
-      form.push(group);
-    } else {
-      form.addControl(key, group);
-    }
-    return Object.keys(item).forEach(key => buildForm(group, item[key], key));
+    addControl(form, group, key);
+
+    return Object.keys(item).forEach(key =>
+      buildForm(group, (item as Record<string, unknown>)[key], key)
+    );
   }
 
   const control = new FormControl(item);
@@ -42,7 +44,7 @@ const addControl = (
   control: FormGroup | FormArray | FormControl,
   key = ''
 ) => {
-  if ('push' in formElt) {
+  if (formElt instanceof FormArray) {
     formElt.push(control);
   } else {
     formElt.addControl(key, control);
