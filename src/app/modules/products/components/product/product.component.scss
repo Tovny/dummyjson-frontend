@@ -9,22 +9,9 @@ p {
   text-align: center;
 }
 
-.images {
-  display: flex;
-  flex-grow: 1;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
+app-image-slider {
+  margin-inline: 1rem;
   margin-bottom: 2rem;
-}
-
-img {
-  max-width: calc(100% - 1rem);
-
-  @media (min-width: 768px) {
-    max-width: min(calc(50% - 1rem), 325px);
-  }
 }
 
 mat-card > mat-card-content {

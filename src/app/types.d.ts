@@ -3,9 +3,11 @@ import { accounts as Accounts } from 'google-one-tap';
 import { FormFieldTypes } from './shared/models/form-field-types.model';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
-declare var window: Window & {
-  google: { accounts: Accounts };
-};
+declare global {
+  interface window {
+    google: { accounts: Accounts };
+  }
+}
 
 export interface Product {
   brand: string;
@@ -139,3 +141,8 @@ export type FormType<T> = {
 };
 
 export type GeneratedForm<T> = FormGroup<FormType<T>>;
+
+export interface Image {
+  src: string;
+  alt: string;
+}

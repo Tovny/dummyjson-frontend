@@ -23,10 +23,5 @@
     <mat-card-content> Stock: {{ showItem(item.stock) }} </mat-card-content>
     <mat-card-content> Price: {{ showItem(item.price) }} </mat-card-content>
   </mat-card-content>
-  <div class="images">
-    <img
-      *ngFor="let image of item.images; index as i"
-      [src]="image"
-      [alt]="getImageAlt(i)" />
-  </div>
+  <app-image-slider [images]="images"></app-image-slider>
 </mat-card>

@@ -1,0 +1,26 @@
+<div *ngIf="{ index: selectedImage$ | async } as slider" class="container">
+  <button
+    *ngIf="!previousDisabled"
+    class="btn btn__left"
+    mat-mini-fab
+    aria-label="Previous image"
+    title="Previous image"
+    color="primary"
+    (click)="handleSlide(-1)">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  <img
+    *ngIf="slider.index !== null"
+    [src]="images[slider.index].src"
+    [alt]="images[slider.index].alt" />
+  <button
+    *ngIf="!nextDisabled"
+    class="btn btn__right"
+    mat-mini-fab
+    aria-label="Next image"
+    title="Next image"
+    color="primary"
+    (click)="handleSlide(1)">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</div>

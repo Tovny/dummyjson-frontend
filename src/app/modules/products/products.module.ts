@@ -12,6 +12,7 @@ import { ItemDetailsBaseModule } from '../common/item-details-base/item-details-
 import { MatCardModule } from '@angular/material/card';
 import { DetailHeaderComponent } from '../common/detail-header/detail-header.component';
 import { CrudBaseModule } from '../common/crud-base/crud-base.module';
+import { ImageSliderComponent } from '../common/image-slider/image-slider.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { CrudBaseModule } from '../common/crud-base/crud-base.module';
     MatCardModule,
     DetailHeaderComponent,
     CrudBaseModule,
+    ImageSliderComponent,
   ],
 })
 export class ProductsModule {}
