@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { CrudBaseComponent } from 'src/app/modules/common/crud-base/crud-base.component';
 import { FormFieldTypes } from 'src/app/shared/models/form-field-types.model';
-import { EMPTY_USER, USER_FORM_FIELDS } from '../../constants/constants';
+import { EMPTY_USER, USER_FORM_FIELDS } from '../../constants/user-constants';
 
 @Component({
   selector: 'app-user-crud',

@@ -5,7 +5,10 @@ import { Product } from 'src/app/types';
 import { ProductsService } from '../../services/products.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { EMPTY_PRODUCT, PRODUCT_FORM_FIELDS } from '../../constants/constants';
+import {
+  EMPTY_PRODUCT,
+  PRODUCT_FORM_FIELDS,
+} from '../../constants/product-constants';
 
 @Component({
   selector: 'app-product-crud',

@@ -104,7 +104,10 @@ export const USER_FORM_FIELDS: FormField[] = [
   { type: FormFieldTypes.TEXT, label: 'Eye color', control: 'eyeColor' },
   {
     type: FormFieldTypes.SELECT,
-    options: ['Male', 'Female'],
+    options: [
+      { label: 'Male', value: 'male' },
+      { label: 'Female', value: 'female' },
+    ],
     label: 'Gender',
     control: 'gender',
   },
