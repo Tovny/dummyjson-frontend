@@ -1,4 +1,10 @@
 <mat-form-field appearance="fill">
   <mat-label><ng-content></ng-content></mat-label>
-  <input matInput color="primary" [type]="type" [formControl]="control" />
+  <input
+    matInput
+    color="primary"
+    [type]="type"
+    [min]="min"
+    [max]="max"
+    [formControl]="control" />
 </mat-form-field>

@@ -17,7 +17,7 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Subscription } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-input',
@@ -36,15 +36,19 @@ export class InputComponent
   implements ControlValueAccessor, OnChanges, OnDestroy
 {
   @Input() type: 'text' | 'number' | 'email' = 'text';
+  @Input() min?: number;
+  @Input() max?: number;
   @Input() disabled?: boolean;
   public control = new FormControl<unknown>(null);
-  private sub?: Subscription;
+  private destroy$ = new Subject<void>();
 
   constructor(@Self() @Optional() private controlDirective: NgControl) {
     if (controlDirective) {
       controlDirective.valueAccessor = this;
 
-      this.sub = this.control.valueChanges.subscribe(val => this.onChange(val));
+      this.control.valueChanges
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(val => this.onChange(val));
     }
   }
 
@@ -76,6 +80,7 @@ export class InputComponent
   public onTouch = (): void => {};
 
   ngOnDestroy(): void {
-    this.sub?.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

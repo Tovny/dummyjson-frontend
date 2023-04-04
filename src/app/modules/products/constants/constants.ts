@@ -1,3 +1,4 @@
+import { ARRAY_CONTROL } from 'src/app/constants/constants';
 import { FormFieldTypes } from 'src/app/shared/models/form-field-types.model';
 import { FormField, Product } from 'src/app/types';
 
@@ -23,14 +24,22 @@ export const PRODUCT_FORM_FIELDS: FormField[] = [
   },
   { type: FormFieldTypes.TEXT, label: 'Category', control: 'category' },
   { type: FormFieldTypes.TEXT, label: 'Brand', control: 'brand' },
-  { type: FormFieldTypes.NUMBER, label: 'Price', control: 'price' },
+  { type: FormFieldTypes.NUMBER, label: 'Price', control: 'price', min: 0 },
   {
     type: FormFieldTypes.NUMBER,
     label: 'Discount %',
     control: 'discountPercentage',
+    min: 0,
+    max: 100,
   },
-  { type: FormFieldTypes.NUMBER, label: 'Rating', control: 'rating' },
-  { type: FormFieldTypes.NUMBER, label: 'Stock', control: 'stock' },
+  {
+    type: FormFieldTypes.NUMBER,
+    label: 'Rating',
+    control: 'rating',
+    min: 0,
+    max: 100,
+  },
+  { type: FormFieldTypes.NUMBER, label: 'Stock', control: 'stock', min: 0 },
   { type: FormFieldTypes.TEXT, label: 'Thumbnail', control: 'thumbnail' },
   {
     type: FormFieldTypes.FIELDSET,
@@ -40,8 +49,7 @@ export const PRODUCT_FORM_FIELDS: FormField[] = [
       {
         type: FormFieldTypes.TEXT,
         label: 'Image',
-        control: '',
-        isArrayControl: true,
+        control: ARRAY_CONTROL,
       },
     ],
   },

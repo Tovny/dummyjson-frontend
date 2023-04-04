@@ -59,7 +59,7 @@ export const USER_FORM_FIELDS: FormField[] = [
   { type: FormFieldTypes.TEXT, label: 'Last name', control: 'lastName' },
   { type: FormFieldTypes.EMAIL, label: 'E-Mail', control: 'email' },
   { type: FormFieldTypes.TEXT, label: 'Image', control: 'image' },
-  { type: FormFieldTypes.NUMBER, label: 'Age', control: 'age' },
+  { type: FormFieldTypes.NUMBER, label: 'Age', control: 'age', min: 0 },
   {
     type: FormFieldTypes.FIELDSET,
     label: 'Address',
@@ -117,7 +117,7 @@ export const USER_FORM_FIELDS: FormField[] = [
       { type: FormFieldTypes.TEXT, label: 'Type', control: 'type' },
     ],
   },
-  { type: FormFieldTypes.NUMBER, label: 'Height', control: 'height' },
+  { type: FormFieldTypes.NUMBER, label: 'Height', control: 'height', min: 0 },
   { type: FormFieldTypes.TEXT, label: 'Weight', control: 'weight' },
   { type: FormFieldTypes.TEXT, label: 'IP', control: 'ip' },
   { type: FormFieldTypes.TEXT, label: 'MAC Address', control: 'macAddress' },
