@@ -63,6 +63,8 @@ export class BaseApiService<T extends User | Product | Cart> {
   }
 
   public updateItem(id: number, item: Partial<T>) {
+    delete item.id;
+
     return this.http
       .put<T>(`${this.key}/${id}`, item)
       .pipe(
