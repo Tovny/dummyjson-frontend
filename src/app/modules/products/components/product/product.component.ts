@@ -16,13 +16,10 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ProductComponent extends ItemDetailsBaseComponent<Product> {
   public readonly productsEndpoint = ApiEndpoints.PRODUCTS;
-
-  public get images(): Image[] {
-    return this.item.images.map((image, i) => ({
-      src: image,
-      alt: `${this.item.title} #${i + 1}`,
-    }));
-  }
+  public images = this.item.images.map((image, i) => ({
+    src: image,
+    alt: `${this.item.title} #${i + 1}`,
+  }));
 
   constructor(
     protected override service: ProductsService,
@@ -31,9 +28,5 @@ export class ProductComponent extends ItemDetailsBaseComponent<Product> {
     protected override dialog: MatDialog
   ) {
     super(service, route, snackbar, dialog, 'user');
-  }
-
-  public trackByUrl(_: number, url: string) {
-    return url;
   }
 }
