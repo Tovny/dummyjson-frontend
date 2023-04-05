@@ -15,19 +15,9 @@
 
 img {
   max-height: 100%;
-  max-width: 100%;
+  max-width: calc(100% - 5rem);
 }
 
-.btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-
-  &__left {
-    left: 0;
-  }
-
-  &__right {
-    right: 0;
-  }
+button {
+  margin-inline: 0.25rem;
 }
