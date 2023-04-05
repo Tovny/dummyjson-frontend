@@ -7,6 +7,7 @@
     [options]="users">
     User
   </app-select>
+  <app-form-error [control]="userControl">User is required.</app-form-error>
 
   <fieldset formGroupName="products">
     <legend>Products</legend>
@@ -23,10 +24,13 @@
         </app-select>
         <app-input
           type="number"
-          [min]="0"
+          [min]="1"
           [formControl]="getProductControl(i, 'quantity')">
           Quantity
         </app-input>
+        <app-form-error [control]="getProductControl(i, 'quantity')">
+          At least one item needs to be added.
+        </app-form-error>
       </div>
       <button
         type="button"
@@ -34,12 +38,18 @@
         color="primary"
         aria-label="Remove product"
         title="Remove product"
+        [disabled]="formDisabled$ | async"
         (click)="removeControl(productsControl, i)">
         <mat-icon>delete</mat-icon>
       </button>
     </fieldset>
 
-    <button type="button" mat-button color="primary" (click)="addControl()">
+    <button
+      type="button"
+      mat-button
+      color="primary"
+      [disabled]="formDisabled$ | async"
+      (click)="addControl()">
       Add product
     </button>
   </fieldset>
@@ -54,11 +64,3 @@
     Submit
   </button>
 </form>
-
-<ng-template let-item let-form="form" #controller>
-  <ng-container
-    *ngTemplateOutlet="
-      getTemplate(item.type);
-      context: { $implicit: item, form: form }
-    "></ng-container>
-</ng-template>

@@ -15,6 +15,7 @@ import { SelectComponent } from '../common/select/select.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DetailHeaderComponent } from '../common/detail-header/detail-header.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FormErrorComponent } from '../common/form-error/form-error.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     DetailHeaderComponent,
     MatDialogModule,
+    FormErrorComponent,
   ],
 })
 export class CartsModule {}

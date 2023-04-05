@@ -33,7 +33,12 @@ export class CartCrudComponent
         products.map(product => ({ label: product.title, value: product.id }))
       )
     );
+  private productValidators = [Validators.required, Validators.min(1)];
   private sub!: Subscription;
+
+  public get userControl() {
+    return this.form.controls.userId;
+  }
 
   public get productsControl() {
     return this.form.controls.products;
@@ -64,6 +69,9 @@ export class CartCrudComponent
       });
 
     this.form.controls.userId.addValidators(Validators.required);
+    this.productsControl.controls.forEach(control =>
+      control.controls.quantity.addValidators(this.productValidators)
+    );
 
     // sync up total and the rest of the product controls
     this.sub = this.productsControl.valueChanges.subscribe(() => {
@@ -109,12 +117,12 @@ export class CartCrudComponent
       id: 0,
       title: '',
       price: 0,
-      quantity: 0,
+      quantity: 1,
       total: 0,
       discountPercentage: 0,
       discountedPrice: 0,
     });
-    control.controls.quantity.addValidators(Validators.min(1));
+    control.controls.quantity.addValidators(this.productValidators);
     this.productsControl.push(control);
   }
 
