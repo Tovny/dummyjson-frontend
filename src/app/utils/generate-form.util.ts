@@ -8,16 +8,14 @@ import { GeneratedForm } from '../types';
 
 export const generateForm = <T extends object>(item: T): GeneratedForm<T> => {
   const form = new FormGroup({}) as unknown as GeneratedForm<T>;
-  Object.keys(item).forEach(key =>
-    buildForm(form, (item as Record<string, unknown>)[key], key)
-  );
+  Object.keys(item).forEach(key => buildForm(form, item[key as keyof T], key));
 
   return form;
 };
 
 const buildForm = (
   form: FormGroup | FormArray,
-  item: unknown | unknown | Record<string, unknown>,
+  item: unknown,
   key: string
 ): void => {
   if (Array.isArray(item)) {
@@ -31,7 +29,7 @@ const buildForm = (
     addControl(form, group, key);
 
     return Object.keys(item).forEach(key =>
-      buildForm(group, (item as Record<string, unknown>)[key], key)
+      buildForm(group, item[key as keyof unknown], key)
     );
   }
 
