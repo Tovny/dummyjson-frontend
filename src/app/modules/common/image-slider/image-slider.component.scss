@@ -9,13 +9,11 @@
   align-items: center;
   justify-content: center;
   width: max-content;
-  max-width: 600px;
-  max-height: 400px;
 }
 
 img {
-  max-height: 100%;
-  max-width: calc(100% - 5rem);
+  max-height: min(100%, 500px);
+  max-width: min(calc(100% - 5rem), 600px);
 }
 
 button {
