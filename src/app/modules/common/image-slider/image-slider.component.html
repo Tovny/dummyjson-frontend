@@ -1,7 +1,7 @@
 <div
   *ngIf="sliderState$ | async as data"
   class="container"
-  [ngStyle]="{ height: data.height.style }">
+  [ngStyle]="{ 'height.px': data.height.height || 'auto' }">
   <button
     mat-mini-fab
     aria-label="Previous image"

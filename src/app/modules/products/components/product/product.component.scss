@@ -11,7 +11,7 @@ p {
 
 app-image-slider {
   margin-inline: 1rem;
-  margin-bottom: 2rem;
+  max-width: calc(100% - 3rem);
 }
 
 mat-card > mat-card-content {

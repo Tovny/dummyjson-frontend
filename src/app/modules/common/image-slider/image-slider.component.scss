@@ -15,13 +15,14 @@
 img {
   position: absolute;
   visibility: hidden;
+  max-width: 100%;
 }
 
 img:not(.height-image) {
   position: relative;
   visibility: visible;
   max-height: 100%;
-  max-width: min(calc(100% - 5rem), 1000px);
+  max-width: min(calc(100% - 5rem), 800px);
 }
 
 button {

@@ -11,12 +11,20 @@ import {
   Component,
   Input,
   OnChanges,
+  OnDestroy,
   QueryList,
   ViewChildren,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { BehaviorSubject, combineLatest, map } from 'rxjs';
+import {
+  BehaviorSubject,
+  Subscription,
+  combineLatest,
+  debounceTime,
+  fromEvent,
+  map,
+} from 'rxjs';
 import { Image } from 'src/app/types';
 
 enum AnimationStates {
@@ -52,7 +60,7 @@ const animationDuration = 250;
   imports: [CommonModule, MatButtonModule, MatIconModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ImageSliderComponent implements OnChanges {
+export class ImageSliderComponent implements OnChanges, OnDestroy {
   @Input() images!: Image[];
   private _selectedImage$ = new BehaviorSubject(0);
   private _animationState$ = new BehaviorSubject<AnimationStates>(
@@ -61,14 +69,14 @@ export class ImageSliderComponent implements OnChanges {
   private _sliderHeight$ = new BehaviorSubject<{
     height: number;
     calculated: number;
-    style: string;
-  }>({ height: 0, calculated: 0, style: '0' });
+  }>({ height: 0, calculated: 0 });
   public sliderState$ = combineLatest([
     this._selectedImage$,
     this._animationState$,
     this._sliderHeight$,
   ]).pipe(map(([index, state, height]) => ({ index, state, height })));
   private actionsDisabled = false;
+  private sub!: Subscription;
   @ViewChildren('heightImages') heightImages!: QueryList<HTMLImageElement>;
 
   public get previousDisabled() {
@@ -82,8 +90,14 @@ export class ImageSliderComponent implements OnChanges {
     );
   }
 
+  constructor() {
+    this.sub = fromEvent(window, 'resize')
+      .pipe(debounceTime(250))
+      .subscribe(() => this.resetSliderHeight());
+  }
+
   ngOnChanges(): void {
-    this._sliderHeight$.next({ height: 0, calculated: 0, style: '' });
+    this.resetSliderHeight();
   }
 
   public handleSlide(change: -1 | 1) {
@@ -103,7 +117,7 @@ export class ImageSliderComponent implements OnChanges {
     }
   }
 
-  handleImageLoad() {
+  public handleImageLoad() {
     this._animationState$.next(AnimationStates.IN);
     this.actionsDisabled = false;
   }
@@ -114,9 +128,16 @@ export class ImageSliderComponent implements OnChanges {
     const nextHeight = Math.max(height, eltHeight);
 
     this._sliderHeight$.next({
-      height: nextHeight,
+      height: Math.min(nextHeight, 500),
       calculated: calculated + 1,
-      style: `min(500px, ${nextHeight}px)`,
     });
+  }
+
+  private resetSliderHeight() {
+    this._sliderHeight$.next({ height: 0, calculated: 0 });
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }
