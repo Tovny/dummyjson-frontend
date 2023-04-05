@@ -6,12 +6,12 @@ import { environment } from 'src/environment/environment';
   providedIn: 'root',
 })
 export class GoogleOAuthService {
-  private accounts = window.google.accounts;
+  private accounts = window.google?.accounts;
   private _authToken$ = new BehaviorSubject<string | null>(null);
   public authToken$ = this._authToken$.asObservable();
 
   constructor(private zone: NgZone) {
-    this.accounts.id.initialize({
+    this.accounts?.id.initialize({
       client_id: environment.googleId,
       ux_mode: 'popup',
       callback: ({ credential }) => {

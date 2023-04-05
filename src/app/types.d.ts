@@ -5,7 +5,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 declare global {
   interface window {
-    google: { accounts: Accounts };
+    google?: { accounts: Accounts };
   }
 }
 
