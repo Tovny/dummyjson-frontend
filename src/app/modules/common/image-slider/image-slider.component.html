@@ -1,4 +1,7 @@
-<div *ngIf="sliderState$ | async as data" class="container">
+<div
+  *ngIf="sliderState$ | async as data"
+  class="container"
+  [ngStyle]="{ height: data.height.style }">
   <button
     mat-mini-fab
     aria-label="Previous image"
@@ -24,4 +27,12 @@
     (click)="handleSlide(1)">
     <mat-icon>chevron_right</mat-icon>
   </button>
+
+  <ng-container *ngIf="data.height.calculated < images.length">
+    <img
+      *ngFor="let image of images"
+      class="height-image"
+      [src]="image.src"
+      (load)="handleHeightImageLoad($event)" />
+  </ng-container>
 </div>

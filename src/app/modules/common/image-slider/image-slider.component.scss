@@ -9,11 +9,19 @@
   align-items: center;
   justify-content: center;
   width: max-content;
+  max-height: 800px;
 }
 
 img {
-  max-height: min(100%, 500px);
-  max-width: min(calc(100% - 5rem), 600px);
+  position: absolute;
+  visibility: hidden;
+}
+
+img:not(.height-image) {
+  position: relative;
+  visibility: visible;
+  max-height: 100%;
+  max-width: min(calc(100% - 5rem), 1000px);
 }
 
 button {

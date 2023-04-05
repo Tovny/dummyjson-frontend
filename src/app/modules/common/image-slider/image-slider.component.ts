@@ -6,7 +6,14 @@ import {
   trigger,
 } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
@@ -45,17 +52,24 @@ const animationDuration = 250;
   imports: [CommonModule, MatButtonModule, MatIconModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ImageSliderComponent {
+export class ImageSliderComponent implements OnChanges {
   @Input() images!: Image[];
   private _selectedImage$ = new BehaviorSubject(0);
   private _animationState$ = new BehaviorSubject<AnimationStates>(
     AnimationStates.IN
   );
+  private _sliderHeight$ = new BehaviorSubject<{
+    height: number;
+    calculated: number;
+    style: string;
+  }>({ height: 0, calculated: 0, style: '0' });
   public sliderState$ = combineLatest([
     this._selectedImage$,
     this._animationState$,
-  ]).pipe(map(([index, state]) => ({ index, state })));
+    this._sliderHeight$,
+  ]).pipe(map(([index, state, height]) => ({ index, state, height })));
   private actionsDisabled = false;
+  @ViewChildren('heightImages') heightImages!: QueryList<HTMLImageElement>;
 
   public get previousDisabled() {
     return this.actionsDisabled || this._selectedImage$.value <= 0;
@@ -66,6 +80,10 @@ export class ImageSliderComponent {
       this.actionsDisabled ||
       this._selectedImage$.value >= this.images.length - 1
     );
+  }
+
+  ngOnChanges(): void {
+    this._sliderHeight$.next({ height: 0, calculated: 0, style: '' });
   }
 
   public handleSlide(change: -1 | 1) {
@@ -88,5 +106,17 @@ export class ImageSliderComponent {
   handleImageLoad() {
     this._animationState$.next(AnimationStates.IN);
     this.actionsDisabled = false;
+  }
+
+  public handleHeightImageLoad(evt: Event) {
+    const eltHeight = (evt.currentTarget as HTMLImageElement).scrollHeight;
+    const { height, calculated } = this._sliderHeight$.value;
+    const nextHeight = Math.max(height, eltHeight);
+
+    this._sliderHeight$.next({
+      height: nextHeight,
+      calculated: calculated + 1,
+      style: `min(500px, ${nextHeight}px)`,
+    });
   }
 }
