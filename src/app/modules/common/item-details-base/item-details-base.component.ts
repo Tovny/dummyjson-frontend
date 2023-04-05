@@ -3,17 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, EMPTY, catchError, of, switchMap, tap } from 'rxjs';
 import { BaseApiService } from 'src/app/shared/services/base-api.service';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  InjectionToken,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NO_DATA_AVAILABLE } from 'src/app/constants/constants';
-
-export const DATA_KEY_TOKEN = new InjectionToken<string>('dataKey');
 
 @Component({
   template: '',
@@ -30,10 +23,9 @@ export class ItemDetailsBaseComponent<T extends User | Product | Cart> {
     protected service: BaseApiService<T>,
     protected route: ActivatedRoute,
     protected snackbar: MatSnackBar,
-    protected dialog: MatDialog,
-    @Inject(DATA_KEY_TOKEN) protected dataKey: string
+    protected dialog: MatDialog
   ) {
-    this.item = route.snapshot.data[dataKey];
+    this.item = route.snapshot.data['item'];
   }
 
   public deleteItem(id: number) {

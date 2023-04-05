@@ -33,7 +33,7 @@ const routes: Routes = [
       {
         path: ':id',
         component: CartComponent,
-        resolve: { cart: itemResolver(CartsService, ApiEndpoints.CARTS) },
+        resolve: { item: itemResolver(CartsService, ApiEndpoints.CARTS) },
       },
     ],
   },

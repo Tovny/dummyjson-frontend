@@ -28,7 +28,7 @@ export class CartComponent extends ItemDetailsBaseComponent<Cart> {
     protected override dialog: MatDialog,
     private http: HttpClient
   ) {
-    super(service, route, snackbar, dialog, 'cart');
+    super(service, route, snackbar, dialog);
     this.http
       .get<User>(`users/${this.item.userId}`)
       .subscribe(res => this._user$.next(res));

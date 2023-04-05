@@ -27,6 +27,6 @@ export class ProductComponent extends ItemDetailsBaseComponent<Product> {
     protected override snackbar: MatSnackBar,
     protected override dialog: MatDialog
   ) {
-    super(service, route, snackbar, dialog, 'user');
+    super(service, route, snackbar, dialog);
   }
 }

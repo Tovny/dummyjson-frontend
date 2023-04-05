@@ -35,7 +35,7 @@ const routes: Routes = [
       {
         path: ':id',
         component: UserComponent,
-        resolve: { user: itemResolver(UsersService, ApiEndpoints.USERS) },
+        resolve: { item: itemResolver(UsersService, ApiEndpoints.USERS) },
       },
     ],
   },
