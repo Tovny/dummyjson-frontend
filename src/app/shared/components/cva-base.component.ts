@@ -1,26 +1,54 @@
-import { Component, OnDestroy, Optional, Self } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Optional,
+  Self,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import { merge, Subscription, tap } from 'rxjs';
 
 @Component({
   template: '',
 })
-export class BaseCVAComponent implements ControlValueAccessor, OnDestroy {
+export class BaseCVAComponent
+  implements ControlValueAccessor, OnInit, OnDestroy
+{
   public control = new FormControl<unknown>(null);
-  private destroy$ = new Subject<void>();
+  private sub?: Subscription;
 
-  constructor(@Self() @Optional() protected controlDirective: NgControl) {
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    @Self() @Optional() protected controlDirective?: NgControl
+  ) {
     if (controlDirective) {
       controlDirective.valueAccessor = this;
+    }
+  }
 
-      this.control.valueChanges
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(val => this.onChange(val));
+  ngOnInit(): void {
+    const directiveControl = this.controlDirective?.control;
+    if (directiveControl) {
+      this.sub = merge(
+        this.control.valueChanges.pipe(tap(val => this.onChange(val))),
+        directiveControl.statusChanges.pipe(
+          tap(() => {
+            this.control.setErrors(
+              (this.controlDirective as NgControl).errors,
+              {
+                emitEvent: false,
+              }
+            );
+            this.cdRef.markForCheck();
+          })
+        )
+      ).subscribe();
     }
   }
 
   public writeValue(value: unknown): void {
-    this.control.setValue(value);
+    this.control.setValue(value, { emitEvent: false });
   }
 
   public registerOnChange(fn: (value: unknown) => void): void {
@@ -37,8 +65,15 @@ export class BaseCVAComponent implements ControlValueAccessor, OnDestroy {
 
   public onTouch = (): void => {};
 
+  public setDisabledState(isDisabled: boolean): void {
+    isDisabled
+      ? this.control.disable({ emitEvent: false })
+      : this.control.enable({ emitEvent: false });
+
+    this.cdRef.markForCheck();
+  }
+
   ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.sub?.unsubscribe();
   }
 }
