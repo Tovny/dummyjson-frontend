@@ -28,13 +28,19 @@ export class BaseApiService<T extends User | Product | Cart> {
 
   public fetchItems(search = '') {
     const searchMatches = search === this.searchQuery;
-    const searchQuery = search && this.allowSearch ? `/search?q=${search}` : '';
-    const skipQuery = `${searchQuery ? '&' : '?'}skip=${
-      searchMatches ? this._data$.value.length - this.createdItems : 0
-    }&take=${this.take}`;
+    const params = {
+      q: search,
+      take: this.take,
+      skip: searchMatches ? this._data$.value.length - this.createdItems : 0,
+    };
 
     return this.http
-      .get<Response<T>>(`${this.key}${searchQuery}${skipQuery}`)
+      .get<Response<T>>(
+        `${this.key}${search && this.allowSearch ? '/search' : ''}`,
+        {
+          params,
+        }
+      )
       .pipe(
         tap(res => {
           this.searchQuery = search;
