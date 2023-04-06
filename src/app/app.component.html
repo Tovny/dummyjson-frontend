@@ -1,13 +1,15 @@
 <nav>
   <mat-toolbar color="primary">
-    <a
-      *ngFor="let item of menuItems"
-      mat-button
-      [routerLink]="['/', item]"
-      color="secondary">
-      {{ item | titlecase }}
-    </a>
-    <app-google-auth></app-google-auth>
+    <div>
+      <a
+        *ngFor="let item of menuItems"
+        mat-button
+        [routerLink]="['/', item]"
+        color="secondary">
+        {{ item | titlecase }}
+      </a>
+      <app-google-auth></app-google-auth>
+    </div>
   </mat-toolbar>
 </nav>
 

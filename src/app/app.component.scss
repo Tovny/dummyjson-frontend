@@ -13,6 +13,11 @@ nav {
   }
 }
 
+mat-toolbar > div {
+  display: flex;
+  align-items: center;
+}
+
 div {
   padding: 1rem;
   width: 100%;
