@@ -15,7 +15,7 @@
 img {
   position: absolute;
   visibility: hidden;
-  max-width: 100%;
+  max-width: min(100%, 800px);
 }
 
 img:not(.height-image) {

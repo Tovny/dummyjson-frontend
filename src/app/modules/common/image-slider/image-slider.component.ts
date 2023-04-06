@@ -12,8 +12,6 @@ import {
   Input,
   OnChanges,
   OnDestroy,
-  QueryList,
-  ViewChildren,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -77,7 +75,6 @@ export class ImageSliderComponent implements OnChanges, OnDestroy {
   ]).pipe(map(([index, state, height]) => ({ index, state, height })));
   private actionsDisabled = false;
   private sub!: Subscription;
-  @ViewChildren('heightImages') heightImages!: QueryList<HTMLImageElement>;
 
   public get previousDisabled() {
     return this.actionsDisabled || this._selectedImage$.value <= 0;
